@@ -13,15 +13,15 @@ namespace toolsbox
 
       template <class T> static id_type get()
       {
-        static id_type id = counter_()++;
+        static id_type id = counter_();
         return id;
       }
 
     private:
-      static counter_id_type& counter_()
+      static counter_id_type counter_()
       {
         static counter_id_type counter = 0;
-        return counter;
+        return counter++;
       }
   };
 }

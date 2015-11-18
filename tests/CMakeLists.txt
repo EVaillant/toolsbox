@@ -25,4 +25,16 @@ if (Boost_FOUND)
 	)
 	add_test(test_type_uid test_type_uid)
 
+	#
+	# test_any
+	add_executable(
+		test_any
+		test_any.cc
+	)
+	target_link_libraries(
+		test_any
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	)
+	add_test(test_any test_any)
+
 endif (Boost_FOUND)
