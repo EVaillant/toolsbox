@@ -12,4 +12,17 @@ if (Boost_FOUND)
 		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
 	)
 	add_test(test_variant test_variant)
+
+	#
+	# test_type_uid
+	add_executable(
+		test_type_uid
+		test_type_uid.cc
+	)
+	target_link_libraries(
+		test_type_uid
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	)
+	add_test(test_type_uid test_type_uid)
+
 endif (Boost_FOUND)
