@@ -1,2 +1,12 @@
+# build dir
+build
+
 *.project
 *.swp
+
+# qtcreator project file
+toolsbox.files
+toolsbox.config
+toolsbox.creator
+toolsbox.creator.user
+toolsbox.includes
