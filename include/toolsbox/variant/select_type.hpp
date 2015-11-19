@@ -12,17 +12,17 @@ namespace toolsbox
     // select_type
     template <class FindType, class Type, class ... Types> struct select_type
     {
-      static const size_t id = (select_type<FindType, Types...>::id == (size_t)-1 ? (select_type<FindType, Type>::id) : (select_type<FindType, Types...>::id + 1));
+      static const size_t id = (select_type<FindType, Types...>::id == 0 ? (select_type<FindType, Type>::id) : (select_type<FindType, Types...>::id + 1));
     };
 
     template <class FindType> struct select_type<FindType, FindType>
     {
-      static const size_t id = 0;
+      static const size_t id = 1;
     };
 
     template <class FindType, class Type> struct select_type<FindType, Type>
     {
-      static const size_t id = (size_t)-1;
+      static const size_t id = 0;
     };
   }
 }

@@ -107,6 +107,7 @@ BOOST_AUTO_TEST_CASE( variant_07 )
   my_variant v2 (8);
   my_variant v3 (std::string("rrr"));
   my_variant v4 (5);
+  my_variant v5;
 
   BOOST_CHECK(!( v1 >  v1 ));
   BOOST_CHECK(!( v1 <  v1 ));
@@ -128,7 +129,6 @@ BOOST_AUTO_TEST_CASE( variant_07 )
   BOOST_CHECK_GT(    v3, v2  );
   BOOST_CHECK_GT(    v3, v4  );
 }
-
 
 BOOST_AUTO_TEST_CASE( variant_08 )
 {
@@ -160,4 +160,38 @@ BOOST_AUTO_TEST_CASE( variant_09 )
   BOOST_CHECK( v2.is<std::string>() );
   BOOST_CHECK_EQUAL( v2.as<std::string>(), vs );
 }
+
+BOOST_AUTO_TEST_CASE( variant_10 )
+{
+  my_variant v1 (5);
+  my_variant v2 (std::string("rrr"));
+  my_variant v3;
+
+  BOOST_CHECK( v3 <  v1 );
+  BOOST_CHECK( v3 <  v2 );
+  BOOST_CHECK( v3 <= v1 );
+  BOOST_CHECK( v3 <= v2 );
+  BOOST_CHECK( v3 <  1 );
+  BOOST_CHECK( v3 <= 1 );
+  BOOST_CHECK( v3 != 1 );
+
+  BOOST_CHECK( v1 >  v3 );
+  BOOST_CHECK( v2 >  v3 );
+  BOOST_CHECK( v1 >= v3 );
+  BOOST_CHECK( v2 >= v3 );
+}
+
+BOOST_AUTO_TEST_CASE( variant_11 )
+{
+  my_variant v1 (5);
+  my_variant v2 (std::string("rrr"));
+  my_variant v3;
+
+  std::hash<my_variant> variant_hash;
+
+  BOOST_CHECK( variant_hash(v1) != 0 );
+  BOOST_CHECK( variant_hash(v2) != 0 );
+  BOOST_CHECK( variant_hash(v3) == 0 );
+}
+
 

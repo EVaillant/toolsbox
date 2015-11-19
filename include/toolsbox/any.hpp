@@ -3,6 +3,7 @@
 
 # include <toolsbox/any/any.hpp>
 # include <toolsbox/any/any_io.hpp>
+# include <toolsbox/any/any_hash.hpp>
 
 namespace toolsbox
 {

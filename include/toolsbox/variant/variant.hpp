@@ -26,8 +26,8 @@ namespace toolsbox
 
         static const size_t max_size = toolsbox::mpl::static_max<sizeof (Types)...>::max;
         static const size_t max_alig = toolsbox::mpl::static_max<alignof(Types)...>::max;
-        static const index_type first_index   = 0;
-        static const index_type invalid_index = -1;
+        static const index_type first_index   = 1;
+        static const index_type invalid_index = 0;
 
         typedef typename std::aligned_storage<max_size, max_alig>::type storage_type;
 

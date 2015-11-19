@@ -10,5 +10,89 @@
 
 BOOST_AUTO_TEST_CASE( any_01 )
 {
-
+  toolsbox::any a;
+  BOOST_CHECK(a.empty());
+  BOOST_CHECK(!a.is<int>());
+  BOOST_CHECK(!a.is<std::string>());
 }
+
+BOOST_AUTO_TEST_CASE( any_02 )
+{
+  toolsbox::any a(6);
+  toolsbox::any b(6);
+  toolsbox::any c(7);
+  toolsbox::any d(std::string("eee"));
+
+  BOOST_CHECK(!a.empty());
+  BOOST_CHECK(!b.empty());
+  BOOST_CHECK(!c.empty());
+  BOOST_CHECK(!d.empty());
+  BOOST_CHECK( a.is<int>());
+  BOOST_CHECK(!a.is<std::string>());
+  BOOST_CHECK( a.as<int>() == 6);
+  BOOST_CHECK( b.is<int>());
+  BOOST_CHECK(!b.is<std::string>());
+  BOOST_CHECK( b.as<int>() == 6);
+  BOOST_CHECK( c.is<int>());
+  BOOST_CHECK(!c.is<std::string>());
+  BOOST_CHECK( c.as<int>() == 7);
+  BOOST_CHECK(!d.is<int>());
+  BOOST_CHECK( d.is<std::string>());
+  BOOST_CHECK( d.as<std::string>() == "eee");
+
+  BOOST_CHECK( a == 6);
+  BOOST_CHECK(! (a != 6));
+  BOOST_CHECK( a == b);
+  BOOST_CHECK(! (a != b));
+  BOOST_CHECK( a <= 6);
+  BOOST_CHECK(! (a > 6));
+  BOOST_CHECK( a <  7);
+  BOOST_CHECK(! (a >=  7));
+  BOOST_CHECK( a <= 7);
+  BOOST_CHECK(! (a > 7));
+  BOOST_CHECK( a <= c);
+  BOOST_CHECK(! (a > c));
+  BOOST_CHECK( a <  c);
+  BOOST_CHECK(! (a >=  c));
+  BOOST_CHECK( a != c);
+  BOOST_CHECK(! (a == c));
+  BOOST_CHECK( a <  d);
+  BOOST_CHECK(! (a >=  d));
+  BOOST_CHECK( a != d);
+  BOOST_CHECK(! (a == d));
+  BOOST_CHECK( a <= d);
+  BOOST_CHECK(! (a > d));
+}
+
+BOOST_AUTO_TEST_CASE( any_03 )
+{
+  toolsbox::any v1 (5);
+  toolsbox::any v2 (std::string("rrr"));
+  toolsbox::any v3;
+
+  BOOST_CHECK( v3 <  v1 );
+  BOOST_CHECK( v3 <  v2 );
+  BOOST_CHECK( v3 <= v1 );
+  BOOST_CHECK( v3 <= v2 );
+  BOOST_CHECK( v3 <   1 );
+  BOOST_CHECK( v3 <=  1 );
+
+  BOOST_CHECK( v1 >  v3 );
+  BOOST_CHECK( v2 >  v3 );
+  BOOST_CHECK( v1 >= v3 );
+  BOOST_CHECK( v2 >= v3 );
+}
+
+BOOST_AUTO_TEST_CASE( any_04 )
+{
+  toolsbox::any v1 (5);
+  toolsbox::any v2 (std::string("rrr"));
+  toolsbox::any v3;
+
+  std::hash<toolsbox::any> any_hash;
+
+  BOOST_CHECK( any_hash(v1) != 0 );
+  BOOST_CHECK( any_hash(v2) != 0 );
+  BOOST_CHECK( any_hash(v3) == 0 );
+}
+

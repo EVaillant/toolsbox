@@ -40,6 +40,14 @@ namespace toolsbox
 
       std::ostream& stream_;
     };
+
+    struct visitor_hash
+    {
+      template <class T> size_t operator()(const T& data)
+      {
+        return std::hash<T>()(data);
+      }
+    };
   }
 }
 

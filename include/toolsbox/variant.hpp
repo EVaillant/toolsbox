@@ -3,6 +3,7 @@
 
 # include <toolsbox/variant/variant.hpp>
 # include <toolsbox/variant/variant_io.hpp>
+# include <toolsbox/variant/variant_hash.hpp>
 
 namespace toolsbox
 {

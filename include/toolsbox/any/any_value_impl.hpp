@@ -39,42 +39,47 @@ namespace toolsbox
         {
           assert(a.get_id() == get_id());
           const any_value_impl* impl_a = static_cast<const any_value_impl*>(&a);
-          return (impl_a->value_ == value_);
+          return (value_ == impl_a->value_);
         }
 
         virtual bool not_equal_to(const any_value& a) const override
         {
           assert(a.get_id() == get_id());
           const any_value_impl* impl_a = static_cast<const any_value_impl*>(&a);
-          return (impl_a->value_ != value_);
+          return (value_ != impl_a->value_);
         }
 
         virtual bool less(const any_value& a) const override
         {
           assert(a.get_id() == get_id());
           const any_value_impl* impl_a = static_cast<const any_value_impl*>(&a);
-          return (impl_a->value_ < value_);
+          return (value_ < impl_a->value_);
         }
 
         virtual bool greater(const any_value& a) const override
         {
           assert(a.get_id() == get_id());
           const any_value_impl* impl_a = static_cast<const any_value_impl*>(&a);
-          return (impl_a->value_ > value_);
+          return (value_ > impl_a->value_);
         }
 
         virtual bool less_equal(const any_value& a) const override
         {
           assert(a.get_id() == get_id());
           const any_value_impl* impl_a = static_cast<const any_value_impl*>(&a);
-          return (impl_a->value_ <= value_);
+          return (value_ <= impl_a->value_);
         }
 
         virtual bool greater_equal(const any_value& a) const override
         {
           assert(a.get_id() == get_id());
           const any_value_impl* impl_a = static_cast<const any_value_impl*>(&a);
-          return (impl_a->value_ >= value_);
+          return (value_ >= impl_a->value_);
+        }
+
+        virtual std::size_t hash() const override
+        {
+          return std::hash<T>()(value_);
         }
 
         virtual void to_string(std::ostream& stream) const override
