@@ -45,3 +45,7 @@ endif(DOXYGEN_FOUND)
 #
 # subdir
 add_subdirectory(tests)
+
+#
+# install
+install(DIRECTORY include/ DESTINATION include)
