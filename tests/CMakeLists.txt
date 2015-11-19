@@ -14,7 +14,7 @@ if (Boost_FOUND)
 	add_test(test_variant test_variant)
 
 	#
-	# test_type_uid
+	# type_uid
 	add_executable(
 		test_type_uid
 		test_type_uid.cc
@@ -26,7 +26,7 @@ if (Boost_FOUND)
 	add_test(test_type_uid test_type_uid)
 
 	#
-	# test_any
+	# any
 	add_executable(
 		test_any
 		test_any.cc
@@ -36,5 +36,24 @@ if (Boost_FOUND)
 		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
 	)
 	add_test(test_any test_any)
+
+	#
+	# lockfree
+	add_executable(
+		test_lockfree
+		test_lockfree.cc
+	)
+	target_link_libraries(
+		test_lockfree
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	)
+	add_test(test_lockfree test_lockfree)
+
+	if(ENABLE_PERF_APPL_BUILD)
+		add_executable(
+			perf_lockfree_01
+			perf_lockfree_01.cc
+		)
+	endif(ENABLE_PERF_APPL_BUILD)
 
 endif (Boost_FOUND)
