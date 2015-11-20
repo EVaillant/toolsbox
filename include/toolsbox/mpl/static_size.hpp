@@ -1,5 +1,5 @@
-#ifndef STATIC_SIZE_HPP
-# define STATIC_SIZE_HPP
+#ifndef TOOLSBOX_MPL_STATIC_SIZE_HPP
+# define TOOLSBOX_MPL_STATIC_SIZE_HPP
 
 # include <cstdlib>
 

@@ -56,4 +56,16 @@ if (Boost_FOUND)
 		)
 	endif(ENABLE_PERF_APPL_BUILD)
 
+	#
+	# sig
+	add_executable(
+		test_sig
+		test_sig.cc
+	)
+	target_link_libraries(
+		test_sig
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	)
+	add_test(test_sig test_sig)
+
 endif (Boost_FOUND)
