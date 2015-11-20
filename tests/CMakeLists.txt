@@ -68,4 +68,16 @@ if (Boost_FOUND)
 	)
 	add_test(test_sig test_sig)
 
+	#
+	# print_type
+	add_executable(
+		test_print_type
+		test_print_type.cc
+	)
+	target_link_libraries(
+		test_print_type
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	)
+	add_test(test_print_type test_print_type)
+
 endif (Boost_FOUND)
