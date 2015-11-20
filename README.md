@@ -1,8 +1,104 @@
 # Tools Box
 
-It is full c++ header library
+It is c++ toolsbox library :
+* only header
+* no depend
+* without rtti
+* without exception
 
-## what can i do with this header library ?
+## What can i do with this library ?
+
+### any
+
+prog :
+```c++
+#include <iostream>
+#include <toolsbox/any.hpp>
+
+int main()
+{
+  toolsbox::any a = 5;
+  if(a.is<int>())
+  {
+    std::cout << "it is int :)" << std::endl;
+    int v = a.as<int>();
+    std::cout << v << " " << a << std::endl;
+  }
+  return 0;
+}
+```
+
+out :
+```shell
+it is int :)
+5 5
+```
+
+### variant
+
+prog :
+```c++
+#include <iostream>
+#include <string>
+#include <toolsbox/variant.hpp>
+
+struct visitor1
+{
+  void operator()(const int&)
+  {
+    std::cout << "it is always int :)" << std::endl;
+  }
+  
+  void operator()(const std::string&)
+  {
+    std::cout << "it is string :(" << std::endl;
+  }
+};
+
+struct visitor2
+{
+  std::string operator()(const int&)
+  {
+    return "always :)";
+  }
+  
+  std::string operator()(const std::string&)
+  {
+    return ":(";
+  }
+};
+
+
+int main()
+{
+  toolsbox::variant<int, std::string> v(5);
+  
+  // like any
+  if(a.is<int>())
+  {
+    std::cout << "it is int :)" << std::endl;
+    int v = a.as<int>();
+    std::cout << v << " " << a << std::endl;
+  }
+  
+  // with visitor
+  v.apply_visitor(visitor1());
+  
+  // with visitor and return value
+  std::cout << v.apply_visitor(visitor2()) << std::endl;
+  
+  return 0;
+}
+```
+
+out :
+```shell
+it is int :)
+5 5
+it is always int :)
+always :)
+```
+
 
 ## Required
 
@@ -18,16 +114,21 @@ By default :
 * in debug mode
 * perf tools application are not builded
 
+Common cmake option (to add on common line) :
+
+ Option | Value | Default | Description
+--------| ------|---------|------------
+CMAKE_BUILD_TYPE | Debug or Release | Debug | Select build type
+ENABLE_PERF_APPL_BUILD | ON or OFF | OFF | Build Perf Tools
+MAKE_INSTALL_PREFIX | path | /usr/local | Prefix installation
+
+
 run cmake :
 
 ```shell
 toolsbox $ mkdir build && cd build
 build    $ cmake ..
 ```
-
-if you want to :
-* compile in release mode, add *-DCMAKE_BUILD_TYPE=Release* on cmake command line
-* build perf tools, add *-DENABLE_PERF_APPL_BUILD=ON* on cmake command line
 
 build :
 
@@ -46,9 +147,6 @@ install :
 ```shell
 build    $ make install
 ```
-
-if you want to :
-* select your install prefix, add *-DCMAKE_INSTALL_PREFIX=/whatever* on cmake command line
 
 ## Licence
 
