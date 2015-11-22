@@ -12,6 +12,8 @@ It is c++ toolsbox library :
 * [variant](https://github.com/EVaillant/toolsbox/wiki/variant)
 * [lockfree](https://github.com/EVaillant/toolsbox/wiki/lockfree)
 * [sig](https://github.com/EVaillant/toolsbox/wiki/sig)
+* [for_each](https://github.com/EVaillant/toolsbox/wiki/for_each)
+* [zip](https://github.com/EVaillant/toolsbox/wiki/zip)
 * [print_type](https://github.com/EVaillant/toolsbox/wiki/print_type)
 
 ## Required
