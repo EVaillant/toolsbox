@@ -80,4 +80,16 @@ if (Boost_FOUND)
 	)
 	add_test(test_print_type test_print_type)
 
+	#
+	# for_each
+	add_executable(
+		test_for_each
+		test_for_each.cc
+	)
+	target_link_libraries(
+		test_for_each
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	)
+	add_test(test_for_each test_for_each)
+
 endif (Boost_FOUND)
