@@ -191,5 +191,18 @@ namespace toolsbox
   }
 }
 
+namespace std
+{
+  template <class T> T* get(toolsbox::any_detail::any& data) noexcept
+  {
+    return (data.is<T>() ? &data.as<T>() : nullptr);
+  }
+
+  template <class T> const T* get(const toolsbox::any_detail::any& data) noexcept
+  {
+    return (data.is<T>() ? &data.as<T>() : nullptr);
+  }
+}
+
 #endif
 

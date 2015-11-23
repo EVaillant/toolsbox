@@ -386,5 +386,18 @@ namespace toolsbox
   }
 }
 
+namespace std
+{
+  template <class T, class ... Types> T* get(toolsbox::variant_detail::variant<Types...>& data) noexcept
+  {
+    return (data.template is<T>() ? &data.template as<T>() : nullptr);
+  }
+
+  template <class T, class ... Types> const T* get(const toolsbox::variant_detail::variant<Types...>& data) noexcept
+  {
+    return (data.template is<T>() ? &data.template as<T>() : nullptr);
+  }
+}
+
 #endif
 

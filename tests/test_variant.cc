@@ -11,6 +11,7 @@
 
 typedef toolsbox::variant<int, std::string> my_variant;
 BOOST_TEST_DONT_PRINT_LOG_VALUE(my_variant)
+BOOST_TEST_DONT_PRINT_LOG_VALUE(nullptr_t)
 
 BOOST_AUTO_TEST_CASE( variant_01 )
 {
@@ -192,6 +193,15 @@ BOOST_AUTO_TEST_CASE( variant_11 )
   BOOST_CHECK( variant_hash(v1) != 0 );
   BOOST_CHECK( variant_hash(v2) != 0 );
   BOOST_CHECK( variant_hash(v3) == 0 );
+}
+
+BOOST_AUTO_TEST_CASE( variant_12 )
+{
+  my_variant v (5);
+
+  BOOST_CHECK_NE(    std::get<int>(v),         nullptr);
+  BOOST_CHECK_EQUAL( std::get<std::string>(v), nullptr);
+  BOOST_CHECK_EQUAL( *std::get<int>(v),        5);
 }
 
 

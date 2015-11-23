@@ -8,6 +8,8 @@
 
 #include <string>
 
+BOOST_TEST_DONT_PRINT_LOG_VALUE(nullptr_t)
+
 BOOST_AUTO_TEST_CASE( any_01 )
 {
   toolsbox::any a;
@@ -95,4 +97,14 @@ BOOST_AUTO_TEST_CASE( any_04 )
   BOOST_CHECK( any_hash(v2) != 0 );
   BOOST_CHECK( any_hash(v3) == 0 );
 }
+
+BOOST_AUTO_TEST_CASE( any_05 )
+{
+  toolsbox::any v (5);
+
+  BOOST_CHECK_NE(    std::get<int>(v),         nullptr);
+  BOOST_CHECK_EQUAL( std::get<std::string>(v), nullptr);
+  BOOST_CHECK_EQUAL( *std::get<int>(v),        5);
+}
+
 
