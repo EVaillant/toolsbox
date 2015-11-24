@@ -16,6 +16,7 @@ It is c++ toolsbox library :
 * [zip](https://github.com/EVaillant/toolsbox/wiki/zip)
 * [zip_tuple](https://github.com/EVaillant/toolsbox/wiki/zip_tuple)
 * [print_type](https://github.com/EVaillant/toolsbox/wiki/print_type)
+* [static_map](https://github.com/EVaillant/toolsbox/wiki/static_map)
 
 ## Required
 
