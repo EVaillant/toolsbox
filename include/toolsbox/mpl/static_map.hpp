@@ -81,6 +81,11 @@ namespace std
     return data.template as<T>();
   }
 
+  template <class T, class ... Types> T& get(toolsbox::mpl::static_map<Types...>&& data) noexcept
+  {
+    return data.template as<T>();
+  }
+
   template <class T, class ... Types> const T& get(const toolsbox::mpl::static_map<Types...>& data) noexcept
   {
     return data.template as<T>();

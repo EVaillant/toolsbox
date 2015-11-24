@@ -23,4 +23,12 @@ BOOST_AUTO_TEST_CASE( zip_tuple_02 )
   BOOST_CHECK_EQUAL(toolsbox::mpl::print_type<decltype(tuple)>::name(), "tuple(tuple(int, string, bool), tuple(double, char, char))");
 }
 
+BOOST_AUTO_TEST_CASE( zip_tuple_03 )
+{
+  std::tuple<int, double>       t1;
+  std::tuple<std::string, char> t2;
+  std::tuple<bool, char>        t3;
+  auto tuple = toolsbox::make_zip_tuple(t1, t2, t3);
+  BOOST_CHECK_EQUAL(toolsbox::mpl::print_type<decltype(tuple)>::name(), "tuple(tuple(int, string, bool), tuple(double, char, char))");
+}
 

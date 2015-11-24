@@ -6,6 +6,9 @@
 # include <utility>
 # include <iterator>
 
+# include <toolsbox/zip_tuple.hpp>
+# include <toolsbox/for_each.hpp>
+
 namespace toolsbox
 {
   namespace zip_detail
@@ -26,7 +29,7 @@ namespace toolsbox
                                                 \
     template<class ... E> auto name##_iterator(const std::tuple<E...>& tuple)  \
     {                                                                          \
-      return make_iterator(name(), tuple, std::index_sequence_for<E...>{});     \
+      return make_iterator(name(), tuple, std::index_sequence_for<E...>{});    \
     }                                                                          \
     template<class ... E> auto name##_iterator(std::tuple<E...>& tuple)        \
     {                                                                          \
@@ -38,17 +41,6 @@ namespace toolsbox
     functor_helper(prev,  std::prev)
     functor_helper(next,  std::next)
 #undef functor_helper
-
-    template<class Tuple, std::size_t ... I> bool common_iterator(const Tuple& left, const Tuple& right, std::index_sequence<I...>)
-    {
-      bool cmp[] = {(std::get<I>(left) == std::get<I>(right))...};
-      return std::find(std::begin(cmp), std::end(cmp), true) != std::end(cmp);
-    }
-
-    template<class ... Types> bool common_iterator(const std::tuple<Types...>& left, const std::tuple<Types...>& right)
-    {
-      return common_iterator(left, right, std::index_sequence_for<Types...>{});
-    }
 
     template <class Iterator, class Data> class zip_iterator
     {
@@ -132,11 +124,22 @@ namespace toolsbox
         }
 
       protected:
+        struct check_end
+        {
+          bool end_detected = false;
+          template <class T> void operator()(const T& tuple)
+          {
+            end_detected = end_detected || (std::get<0>(tuple) == std::get<1>(tuple));
+          }
+        };
+
         void secure_next_()
         {
           inner_iterator_ = next_iterator(inner_iterator_);
           inner_iterator_type end_inner_iterator = end_iterator(data_);
-          if(common_iterator(inner_iterator_, end_inner_iterator))
+          check_end check;
+          for_each_by_tuple(check, make_zip_tuple(inner_iterator_, end_inner_iterator));
+          if(check.end_detected)
           {
             inner_iterator_ = std::move(end_inner_iterator);
           }
@@ -200,6 +203,11 @@ namespace toolsbox
 namespace std
 {
   template <size_t I, class A, class B> auto& get(toolsbox::zip_detail::zip_iterator<A, B>& data) noexcept
+  {
+    return data.get<I>();
+  }
+
+  template <size_t I, class A, class B> auto& get(toolsbox::zip_detail::zip_iterator<A, B>&& data) noexcept
   {
     return data.get<I>();
   }
