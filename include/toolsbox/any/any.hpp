@@ -188,6 +188,36 @@ namespace toolsbox
       private:
         any_value_ptr_type value_;
     };
+
+    template <class T> bool operator<(const T& t, const any& v)
+    {
+     return (v > t);
+    }
+
+    template <class T> bool operator<=(const T& t, const any& v)
+    {
+     return (v >= t);
+    }
+
+    template <class T> bool operator>(const T& t, const any& v)
+    {
+     return (v < t);
+    }
+
+    template <class T> bool operator>=(const T& t, const any& v)
+    {
+     return (v <= t);
+    }
+
+    template <class T> bool operator==(const T& t, const any& v)
+    {
+     return (v == t);
+    }
+
+    template <class T> bool operator!=(const T& t, const any& v)
+    {
+     return (v != t);
+    }
   }
 }
 

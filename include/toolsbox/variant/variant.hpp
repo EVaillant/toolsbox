@@ -55,15 +55,17 @@ namespace toolsbox
           }
         }
 
-        template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> explicit variant(const T& value)
+        template <class T> explicit variant(const T& value)
           : index_(select_type<T>::id)
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           new(&storage_) T (value);
         }
 
-        template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> explicit variant(T && value)
+        template <class T> explicit variant(T && value)
           : index_(select_type<T>::id)
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           new(&storage_) T (std::forward<T>(value));
         }
 
@@ -93,13 +95,15 @@ namespace toolsbox
           return select_type<T>::id == index_;
         }
 
-        template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> T& as()
+        template <class T> T& as()
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           return *reinterpret_cast<T*>(&storage_);
         }
 
-        template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> const T& as() const
+        template <class T> const T& as() const
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           return *reinterpret_cast<const T*>(&storage_);
         }
 
@@ -113,8 +117,9 @@ namespace toolsbox
           return copy_(v);
         }
 
-        template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> variant& operator=(const T& v)
+        template <class T> variant& operator=(const T& v)
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           typedef wrapper<const T> local_wrapper;
           return copy_(local_wrapper(v));
         }
@@ -126,6 +131,7 @@ namespace toolsbox
 
         template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> variant& operator=(T&& v)
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           return move_(wrapper<T>(v));
         }
 
@@ -134,8 +140,9 @@ namespace toolsbox
           return cmp_<variant, std::equal_to>(v);
         }
 
-        template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> bool operator==(const T& v) const
+        template <class T> bool operator==(const T& v) const
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           typedef wrapper<const T> local_wrapper;
           return cmp_<local_wrapper, std::equal_to>(local_wrapper(v));
         }
@@ -145,8 +152,9 @@ namespace toolsbox
           return cmp_<variant, std::not_equal_to>(v);
         }
 
-        template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> bool operator!=(const T& v) const
+        template <class T> bool operator!=(const T& v) const
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           typedef wrapper<const T> local_wrapper;
           return cmp_<local_wrapper, std::not_equal_to>(local_wrapper(v));
         }
@@ -156,8 +164,9 @@ namespace toolsbox
           return cmp_<variant, std::less>(v);
         }
 
-        template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> bool operator<(const T& v) const
+        template <class T> bool operator<(const T& v) const
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           typedef wrapper<const T> local_wrapper;
           return cmp_<local_wrapper, std::less>(local_wrapper(v));
         }
@@ -167,8 +176,9 @@ namespace toolsbox
           return cmp_<variant, std::less_equal>(v);
         }
 
-        template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> bool operator<=(const T& v) const
+        template <class T> bool operator<=(const T& v) const
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           typedef wrapper<const T> local_wrapper;
           return cmp_<local_wrapper, std::less_equal>(local_wrapper(v));
         }
@@ -178,8 +188,9 @@ namespace toolsbox
           return cmp_<variant, std::greater>(v);
         }
 
-        template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> bool operator>(const T& v) const
+        template <class T> bool operator>(const T& v) const
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           typedef wrapper<const T> local_wrapper;
           return cmp_<local_wrapper, std::greater>(local_wrapper(v));
         }
@@ -189,8 +200,9 @@ namespace toolsbox
           return cmp_<variant, std::greater_equal>(v);
         }
 
-        template <class T, class D = typename std::enable_if<select_type<T>::id != invalid_index>::type> bool operator>=(const T& v) const
+        template <class T> bool operator>=(const T& v) const
         {
+          static_assert(select_type<T>::id != invalid_index, "invalid type");
           typedef wrapper<const T> local_wrapper;
           return cmp_<local_wrapper, std::greater_equal>(local_wrapper(v));
         }
@@ -383,6 +395,36 @@ namespace toolsbox
         storage_type storage_;
         index_type   index_;
     };
+
+    template <class T, class ... Types> bool operator<(const T& t, const variant<Types...>& v)
+    {
+     return (v > t);
+    }
+
+    template <class T, class ... Types> bool operator<=(const T& t, const variant<Types...>& v)
+    {
+     return (v >= t);
+    }
+
+    template <class T, class ... Types> bool operator>(const T& t, const variant<Types...>& v)
+    {
+     return (v < t);
+    }
+
+    template <class T, class ... Types> bool operator>=(const T& t, const variant<Types...>& v)
+    {
+     return (v <= t);
+    }
+
+    template <class T, class ... Types> bool operator==(const T& t, const variant<Types...>& v)
+    {
+     return (v == t);
+    }
+
+    template <class T, class ... Types> bool operator!=(const T& t, const variant<Types...>& v)
+    {
+     return (v != t);
+    }
   }
 }
 

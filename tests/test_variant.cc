@@ -175,6 +175,9 @@ BOOST_AUTO_TEST_CASE( variant_10 )
   BOOST_CHECK( v3 <  1 );
   BOOST_CHECK( v3 <= 1 );
   BOOST_CHECK( v3 != 1 );
+  BOOST_CHECK( 1  >  v3 );
+  BOOST_CHECK( 1  >= v3 );
+  BOOST_CHECK( 1  != v3 );
 
   BOOST_CHECK( v1 >  v3 );
   BOOST_CHECK( v2 >  v3 );
