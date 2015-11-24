@@ -45,6 +45,22 @@ namespace toolsbox
       }
     };
 
+    template <> struct print_type<bool>
+    {
+      static std::string name()
+      {
+        return "bool";
+      }
+    };
+
+    template <> struct print_type<char>
+    {
+      static std::string name()
+      {
+        return "char";
+      }
+    };
+
     template <class T> struct print_type<std::vector<T>>
     {
       static std::string name()

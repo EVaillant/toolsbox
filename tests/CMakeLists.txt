@@ -104,4 +104,16 @@ if (Boost_FOUND)
 	)
 	add_test(test_zip test_zip)
 
+	#
+	# zip_tuple
+	add_executable(
+		test_zip_tuple
+		test_zip_tuple.cc
+	)
+	target_link_libraries(
+		test_zip_tuple
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	)
+	add_test(test_zip_tuple test_zip_tuple)
+
 endif (Boost_FOUND)

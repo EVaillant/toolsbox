@@ -26,7 +26,7 @@ namespace toolsbox
                                                 \
     template<class ... E> auto name##_iterator(const std::tuple<E...>& tuple)  \
     {                                                                          \
-     return make_iterator(name(), tuple, std::index_sequence_for<E...>{});     \
+      return make_iterator(name(), tuple, std::index_sequence_for<E...>{});     \
     }                                                                          \
     template<class ... E> auto name##_iterator(std::tuple<E...>& tuple)        \
     {                                                                          \
