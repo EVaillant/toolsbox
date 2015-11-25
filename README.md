@@ -37,9 +37,8 @@ Common cmake option (to add on common line) :
  Option | Value | Default | Description
 --------| ------|---------|------------
 CMAKE_BUILD_TYPE | Debug or Release | Debug | Select build type
+CMAKE_INSTALL_PREFIX | path | /usr/local | Prefix installation
 ENABLE_PERF_APPL_BUILD | ON or OFF | OFF | Build Perf Tools
-MAKE_INSTALL_PREFIX | path | /usr/local | Prefix installation
-
 
 run cmake :
 

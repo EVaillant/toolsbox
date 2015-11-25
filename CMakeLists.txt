@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
+
 project(toolsbox)
+set(PROJECT_DESCRIPTION "C++ Tools Box Header Library (c++11/14)")
+set(PROJECT_VERSION 0.0.1 CACHE STRING "Version number")
 
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wall -Wextra -ggdb -std=c++1y -march=native -pthread")
 set(CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG}   -O0")
@@ -51,5 +54,11 @@ endif(DOXYGEN_FOUND)
 add_subdirectory(tests)
 
 #
+# pc file
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/toolsbox.pc.in ${CMAKE_CURRENT_BINARY_DIR}/toolsbox.pc @ONLY)
+
+
+#
 # install
 install(DIRECTORY include/ DESTINATION include)
+install(FILES "${CMAKE_BINARY_DIR}/toolsbox.pc" DESTINATION lib/pkgconfig)
