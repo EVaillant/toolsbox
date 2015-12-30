@@ -1,7 +1,7 @@
 #ifndef TOOLSBOX_VARIANT_DETAIL_VARIANT_HPP
 # define TOOLSBOX_VARIANT_DETAIL_VARIANT_HPP
 
-# include <toolsbox/mpl/static_size.hpp>
+# include <toolsbox/mpl/static_max.hpp>
 
 # include <toolsbox/variant/result_of_visitor.hpp>
 # include <toolsbox/variant/select_type.hpp>
