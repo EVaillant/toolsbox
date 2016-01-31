@@ -54,6 +54,10 @@ if (Boost_FOUND)
 			perf_lockfree_01
 			perf_lockfree_01.cc
 		)
+		add_executable(
+			perf_object_pool_01
+			perf_object_pool_01.cc
+		)
 	endif(ENABLE_PERF_APPL_BUILD)
 
 	#
