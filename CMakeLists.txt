@@ -21,12 +21,16 @@ enable_testing()
 #
 # Boost
 include(FindBoost)
-
 find_package(
 	Boost
 	1.50.0
 	COMPONENTS unit_test_framework
 )
+if (Boost_FOUND)
+  include_directories(
+    ${Boost_INCLUDE_DIR}
+  )
+endif (Boost_FOUND)
 
 include_directories(
 		include
