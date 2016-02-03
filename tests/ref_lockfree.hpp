@@ -75,7 +75,7 @@ namespace ref
         }
         else
         {
-          value = values_.back();
+          value = std::move(values_.back());
           values_.pop_back();
           return true;
         }

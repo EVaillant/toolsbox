@@ -9,44 +9,8 @@
 #include <array>
 #include <map>
 
-template <class T> class queue
-{
-  public:
-    typedef T value_type;
-
-    bool empty() const
-    {
-      std::lock_guard<std::mutex> guard(mutex_);
-      bool v = values_.empty();
-      return v;
-    }
-
-    template <class ValueType> bool push(ValueType&& value)
-    {
-      std::lock_guard<std::mutex> guard(mutex_);
-      values_.push_front(std::move(value));
-      return true;
-    }
-
-    bool pop(value_type& value)
-    {
-      std::lock_guard<std::mutex> guard(mutex_);
-      if(values_.empty())
-      {
-        return false;
-      }
-      else
-      {
-        value = std::move(values_.back());
-        values_.pop_back();
-        return true;
-      }
-    }
-
-  private:
-    std::list<value_type> values_;
-    mutable std::mutex		mutex_;
-};
+#include "ref_lockfree.hpp"
+#include "ref_object_pool.hpp"
 
 class alloc_stat
 {
@@ -113,11 +77,11 @@ class alloc_stat
 
 typedef std::array<char, 10*1024> data_type;
 
-typedef toolsbox::pool::old_tree_object_pool<data_type>   old_tree_pool_type;
-typedef toolsbox::pool::tree_object_pool<data_type>       tree_pool_type;
-typedef toolsbox::pool::linear_object_pool<data_type>     linear_pool_type;
-typedef toolsbox::pool::mutex_object_pool<data_type>      mutex_pool_type;
-typedef toolsbox::pool::none_object_pool<data_type>       ref_pool_type;
+typedef ref::old_tree_object_pool<data_type>          old_tree_pool_type;
+typedef toolsbox::pool::tree_object_pool<data_type>   tree_pool_type;
+typedef toolsbox::pool::linear_object_pool<data_type> linear_pool_type;
+typedef ref::mutex_object_pool<data_type>             mutex_pool_type;
+typedef toolsbox::pool::none_object_pool<data_type>   ref_pool_type;
 
 template <class Pool, class Queue> void task_producer(Pool& pool, Queue& queue, uint64_t nb, alloc_stat& stat)
 {
@@ -158,8 +122,8 @@ template <class Queue> void task_consumer(Queue& queue, std::atomic_bool &stop, 
 
 template <class Pool> void run_test_case(const std::string& name, int nb_producer, int nb_consumer, uint64_t nb)
 {
-  typedef typename Pool::ptr_type   ptr_type;
-  typedef queue<ptr_type> queue_type;
+  typedef typename Pool::ptr_type ptr_type;
+  typedef ref::queue<ptr_type>    queue_type;
 
   Pool       pool;
   queue_type queue;
