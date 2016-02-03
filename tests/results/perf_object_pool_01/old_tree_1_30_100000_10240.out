@@ -1,0 +1,97 @@
+old_tree;1;30;100000;10240;1;;1970;64
+alloc:
+min:0 max:1307 avg:0 nb:100000
+ 0;96641
+ 1;3264
+ 2;28
+ 3;10
+ 4;2
+ 5;2
+ 8;1
+ 16;1
+ 24;1
+ 48;1
+ 49;1
+ 68;2
+ 71;1
+ 72;1
+ 75;1
+ 78;2
+ 102;1
+ 119;2
+ 132;1
+ 142;1
+ 144;1
+ 169;1
+ 175;1
+ 193;1
+ 198;2
+ 214;1
+ 226;1
+ 256;1
+ 259;1
+ 260;1
+ 265;1
+ 272;1
+ 273;1
+ 299;1
+ 307;1
+ 327;1
+ 354;1
+ 397;1
+ 399;1
+ 407;1
+ 418;1
+ 446;1
+ 479;1
+ 483;1
+ 508;1
+ 515;1
+ 541;1
+ 624;1
+ 835;1
+ 849;1
+ 916;1
+ 943;1
+ 1043;1
+ 1062;1
+ 1307;1
+ min:0 max:1307 avg:0 nb:100000
+free:
+min:0 max:1672 avg:0 nb:100000
+ 0;99559
+ 1;431
+ 2;7
+ 21;1
+ 28;1
+ 1672;1
+ min:0 max:1 avg:0 nb:3402
+ min:0 max:1 avg:0 nb:3171
+ min:0 max:2 avg:0 nb:3479
+ min:0 max:1 avg:0 nb:3410
+ min:0 max:1 avg:0 nb:3542
+ min:0 max:1 avg:0 nb:3424
+ min:0 max:28 avg:0 nb:3442
+ min:0 max:2 avg:0 nb:3379
+ min:0 max:2 avg:0 nb:3644
+ min:0 max:1 avg:0 nb:3495
+ min:0 max:1 avg:0 nb:3583
+ min:0 max:1672 avg:0 nb:3327
+ min:0 max:1 avg:0 nb:3502
+ min:0 max:1 avg:0 nb:2340
+ min:0 max:1 avg:0 nb:3909
+ min:0 max:1 avg:0 nb:3410
+ min:0 max:1 avg:0 nb:3196
+ min:0 max:1 avg:0 nb:3457
+ min:0 max:1 avg:0 nb:1842
+ min:0 max:2 avg:0 nb:3362
+ min:0 max:2 avg:0 nb:3416
+ min:0 max:1 avg:0 nb:3365
+ min:0 max:2 avg:0 nb:2624
+ min:0 max:1 avg:0 nb:3444
+ min:0 max:1 avg:0 nb:3280
+ min:0 max:1 avg:0 nb:3630
+ min:0 max:2 avg:0 nb:3573
+ min:0 max:1 avg:0 nb:3460
+ min:0 max:1 avg:0 nb:3392
+ min:0 max:1 avg:0 nb:3500

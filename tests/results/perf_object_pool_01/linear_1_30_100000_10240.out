@@ -1,0 +1,80 @@
+linear;1;30;100000;10240;1;;1905;64
+alloc:
+min:0 max:2955 avg:0 nb:100000
+ 0;96451
+ 1;3451
+ 2;44
+ 3;15
+ 7;1
+ 10;1
+ 11;1
+ 30;2
+ 52;1
+ 54;1
+ 59;1
+ 69;1
+ 74;1
+ 79;1
+ 88;2
+ 91;1
+ 102;1
+ 104;1
+ 154;1
+ 168;1
+ 224;1
+ 235;1
+ 285;1
+ 300;1
+ 313;1
+ 320;1
+ 361;2
+ 364;1
+ 391;1
+ 414;1
+ 424;1
+ 450;1
+ 497;1
+ 532;1
+ 559;1
+ 659;1
+ 667;1
+ 788;1
+ 1239;1
+ 2955;1
+ min:0 max:2955 avg:0 nb:100000
+free:
+min:0 max:89 avg:0 nb:100000
+ 0;99610
+ 1;381
+ 2;8
+ 89;1
+ min:0 max:2 avg:0 nb:3480
+ min:0 max:1 avg:0 nb:3504
+ min:0 max:2 avg:0 nb:3455
+ min:0 max:1 avg:0 nb:3514
+ min:0 max:1 avg:0 nb:3459
+ min:0 max:1 avg:0 nb:3246
+ min:0 max:1 avg:0 nb:3650
+ min:0 max:2 avg:0 nb:3442
+ min:0 max:1 avg:0 nb:3476
+ min:0 max:1 avg:0 nb:3337
+ min:0 max:1 avg:0 nb:3362
+ min:0 max:2 avg:0 nb:3417
+ min:0 max:1 avg:0 nb:3196
+ min:0 max:1 avg:0 nb:3457
+ min:0 max:2 avg:0 nb:3361
+ min:0 max:1 avg:0 nb:3190
+ min:0 max:1 avg:0 nb:3326
+ min:0 max:1 avg:0 nb:2427
+ min:0 max:1 avg:0 nb:3477
+ min:0 max:1 avg:0 nb:3418
+ min:0 max:89 avg:0 nb:2121
+ min:0 max:1 avg:0 nb:3470
+ min:0 max:1 avg:0 nb:3508
+ min:0 max:1 avg:0 nb:3490
+ min:0 max:1 avg:0 nb:3458
+ min:0 max:1 avg:0 nb:3415
+ min:0 max:1 avg:0 nb:3345
+ min:0 max:1 avg:0 nb:3463
+ min:0 max:1 avg:0 nb:3470
+ min:0 max:1 avg:0 nb:3066
