@@ -287,6 +287,10 @@ linear     |           0 |         656 | 1
 tree (old) |           0 |         657 | 0
 tree (new) |           0 |         554 | 1
 
+![How allocation is done in less ... micro sec ?](./images/perf_object_pool_01/alloc_15_15_global.png)
+
+![How allocation is done in less ... micro sec ? (zoom on 0 - 10 micro)](./images/perf_object_pool_01/alloc_15_15_zoom.png)
+
 ### N=1 and M=30
 
 algorithm  | Min (micro) | Max (micro) | Avg (Micro)
@@ -296,6 +300,10 @@ mutex+list |           0 |       22725 | 4
 linear     |           0 |        2955 | 0
 tree (old) |           0 |        1307 | 0
 tree (new) |           0 |        1099 | 0
+
+![How allocation is done in less ... micro sec ?](./images/perf_object_pool_01/alloc_1_30_global.png)
+
+![How allocation is done in less ... micro sec ? (zoom on 0 - 5 micro)](./images/perf_object_pool_01/alloc_1_30_zoom.png)
 
 ## memory free
 
