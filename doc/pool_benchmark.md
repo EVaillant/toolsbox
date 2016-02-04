@@ -4,7 +4,7 @@ It is a basic producer/consumer test. There are :
 * N thread(s) create item with object pool,
 * M thread(s) release item.
 
-The communication between producer and consumer is done via queue and item size is 10240 octets.
+The communication between producer and consumer is done via queue.
 
 # What is measured ?
 
@@ -214,46 +214,52 @@ Nb producer (N) | Nb consumer (M)
 30              |  1
 15              | 15
 
+## Static
+
+* Item size is 10240 octets.
+* Each producer create & send 100000 items
+
 ## Which computer ?
 
 * linux (Red Hat 6.7)
 * g++ (4.8.2-15)
 * 2 processors (_Intel(R) Xeon(R) CPU E5-2667 v2 @ 3.30GHz_) 8 cores
 * 32 Go memory
+* 64-bit binary
 
 ## global
 
 ### N=30 and M=1
 
-algorithm  | Nb Items by Producer | Time to process (Ms) | Nb items in pool
------------|----------------------|----------------------|-----------------
-none       |               100000 |                40601 | 0
-mutex+list |               100000 |                34768 | 2636101
-linear     |               100000 |                 6607 | 50368
-tree (old) |               100000 |                 4108 | 5153856
-tree (new) |               100000 |                 3879 | 309696
+algorithm  | Time to process (Ms) | Nb items in pool
+-----------|----------------------|-----------------
+none       |                40601 | 0
+mutex+list |                34768 | 2636101
+linear     |                 6607 | 50368
+tree (old) |                 4108 | 5153856
+tree (new) |                 3879 | 309696
 
 
 ### N=15 and M=15
 
-algorithm  | Nb Items by Producer | Time to process (Ms) | Nb items in pool
------------|----------------------|----------------------|-----------------
-none       |               100000 |                 3402 | 0
-mutex+list |               100000 |                 2737 | 284
-linear     |               100000 |                 2332 | 2176
-tree (old) |               100000 |                 2285 | 4160
-tree (new) |               100000 |                 2269 | 2880
+algorithm  | Time to process (Ms) | Nb items in pool
+-----------|----------------------|-----------------
+none       |                 3402 | 0
+mutex+list |                 2737 | 284
+linear     |                 2332 | 2176
+tree (old) |                 2285 | 4160
+tree (new) |                 2269 | 2880
 
 
 ### N=1 and M=30
 
-algorithm  | Nb Items by Producer | Time to process (Ms) | Nb items in pool
------------|----------------------|----------------------|-----------------
-none       |               100000 |                 2029 | 0
-mutex+list |               100000 |                 2058 | 13
-linear     |               100000 |                 1905 | 64
-tree (old) |               100000 |                 1970 | 64
-tree (new) |               100000 |                 2011 | 64
+algorithm  | Time to process (Ms) | Nb items in pool
+-----------|----------------------|-----------------
+none       |                 2029 | 0
+mutex+list |                 2058 | 13
+linear     |                 1905 | 64
+tree (old) |                 1970 | 64
+tree (new) |                 2011 | 64
 
 ## memory allocation
 
