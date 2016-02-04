@@ -19,6 +19,8 @@ It is c++ toolsbox library :
 * [static_map](https://github.com/EVaillant/toolsbox/wiki/static_map)
 * [pool](https://github.com/EVaillant/toolsbox/wiki/pool)
 
+* [test](./doc/test.md)
+
 ## Required
 
 * c++ compiler with support c++11 and some part of c++14
