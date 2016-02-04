@@ -8,18 +8,16 @@ It is c++ toolsbox library :
 
 ## What can i do with this library ?
 
-* [any](https://github.com/EVaillant/toolsbox/wiki/any)
-* [variant](https://github.com/EVaillant/toolsbox/wiki/variant)
-* [lockfree](https://github.com/EVaillant/toolsbox/wiki/lockfree)
-* [sig](https://github.com/EVaillant/toolsbox/wiki/sig)
-* [for_each](https://github.com/EVaillant/toolsbox/wiki/for_each)
-* [zip](https://github.com/EVaillant/toolsbox/wiki/zip)
-* [zip_tuple](https://github.com/EVaillant/toolsbox/wiki/zip_tuple)
-* [print_type](https://github.com/EVaillant/toolsbox/wiki/print_type)
-* [static_map](https://github.com/EVaillant/toolsbox/wiki/static_map)
-* [pool](https://github.com/EVaillant/toolsbox/wiki/pool)
-
-* [test](./doc/test.md)
+* [any](./doc/any.md)
+* [variant](./doc/variant.md)
+* [lockfree](./doc/lockfree.md)
+* [sig](./doc/sig.md)
+* [for_each](./doc/for_each.md)
+* [zip](./doc/zip.md)
+* [zip_tuple](./doc/zip_tuple.md)
+* [print_type](./doc/print_type.md)
+* [static_map](./doc/static_map.md)
+* [pool](./doc/pool.md)
 
 ## Required
 
