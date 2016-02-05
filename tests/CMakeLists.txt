@@ -49,6 +49,20 @@ if (Boost_FOUND)
 	)
 	add_test(test_lockfree test_lockfree)
 
+	#
+	# pool 
+	add_executable(
+		test_pool
+		test_pool.cc
+	)
+	target_link_libraries(
+		test_pool
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	)
+	add_test(test_pool test_pool)
+
+  #
+  # perf prog
 	if(ENABLE_PERF_APPL_BUILD)
 		add_executable(
 			perf_lockfree_01
