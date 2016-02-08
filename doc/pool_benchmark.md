@@ -1,10 +1,32 @@
 # Test case
 
-It is a basic producer/consumer test. There are : 
-* N thread(s) create item with object pool,
-* M thread(s) release item.
+It is a basic producer/consumer test and communication between producer and consumer is done via queue.  There are :
+* N thread(s) create item with object pool :
 
-The communication between producer and consumer is done via queue.
+  ```c++
+  void producer(Queue& queue, Pool& pool, std::size_t n)
+  {
+    for(std::size_t i = 0; i < n ; ++i)
+    {
+      auto item = pool.acquire();
+      queue.push(std::move(item));
+    }
+  }
+  ```
+
+* M thread(s) release item :
+
+  ```c++
+  void consumer(Queue& queue, Pool& pool, bool &stop)
+  {
+    typename Queue::value_type v;
+    while(!stop)
+    {
+      queue.pop(v);
+      v.reset();
+    }
+  }
+  ```
 
 # What is measured ?
 
@@ -15,11 +37,8 @@ The communication between producer and consumer is done via queue.
 
 # Algorithm
 
-* none : acquire call new and when object is not need it is destroyed  
-* mutex + list : a list of free objects is created protected by a mutex
-
-  * acquire need to lock mutex and check list if there is no available item, a new item is created
-  * release need to lock mutex and add item in the list
+* none : acquire call `new` and when object is not needed it will be deleted
+* mutex + list : a list of free objects is created protected by a mutex. acquire/release need to lock mutex :
 
   ```c++
   ptr acquire( ARGS ... args)
@@ -36,7 +55,7 @@ The communication between producer and consumer is done via queue.
   }
   ```
 
-* segment linear : it is a one way chain list of segment. A segment is a simple memory pool but each memory block are always same size return nullptr if allocation is not possible. If allocate is not possible, create next segment if not exist and continue on the next segment 
+* segment linear : it is a one way chain list of segment. A segment is a simple memory pool but each memory block are always same size and return nullptr if allocation is not possible. If allocate is not possible, a new segment will be created if not exist and the process continue on the next segment :
 
   ```c++
   struct node
@@ -72,7 +91,7 @@ The communication between producer and consumer is done via queue.
   
   _segment linear_ is full lockfree (acquire / release) and support multi acquire and release in same time.
  
-* segment tree (old and v2) : it is very closed to _segment linear_ is is a tree of segment
+* segment tree (old and v2) : it is very closed to _segment linear_ but is is a tree of segment :
 
   ```c++
   struct node
@@ -103,8 +122,9 @@ The communication between producer and consumer is done via queue.
   }
   ```
 
-  the main difference between the two version if _segment tree_ is the predicate to find the best child :
-  * old version, it is sequential 
+  the main difference between the two version if _segment tree_ is the predicate to find the best child.
+
+  * old version, it is sequential :
 
   ```c++
 
@@ -128,7 +148,7 @@ The communication between producer and consumer is done via queue.
 
   ```
 
-  * new version, the predicate try to find child with free element(s) otherwise child with minimum child
+  * new version, the predicate try to find child with free element(s) otherwise child with minimum child :
 
   ```c++
 
@@ -209,7 +229,7 @@ The communication between producer and consumer is done via queue.
 ## Variables
 
 Nb producer (N) | Nb consumer (M)
-----------------| ---------------
+:--------------:| :-------------:
 1               | 30
 30              |  1
 15              | 15
@@ -223,7 +243,7 @@ Nb producer (N) | Nb consumer (M)
 
 * linux (Red Hat 6.7)
 * g++ (4.8.2-15)
-* 2 processors (_Intel(R) Xeon(R) CPU E5-2667 v2 @ 3.30GHz_) 8 cores
+* 2 processors (_Intel(R) Xeon(R) CPU E5-2667 v2 @ 3.30GHz_) and 8 cores
 * 32 Go memory
 * 64-bit binary
 
@@ -232,7 +252,7 @@ Nb producer (N) | Nb consumer (M)
 ### N=30 and M=1
 
 algorithm  | Time to process (Ms) | Nb items in pool
------------|----------------------|-----------------
+-----------|---------------------:|----------------:
 none       |                40601 | 0
 mutex+list |                34768 | 2636101
 linear     |                 6607 | 50368
@@ -243,7 +263,7 @@ tree (new) |                 3879 | 309696
 ### N=15 and M=15
 
 algorithm  | Time to process (Ms) | Nb items in pool
------------|----------------------|-----------------
+-----------|---------------------:|----------------:
 none       |                 3402 | 0
 mutex+list |                 2737 | 284
 linear     |                 2332 | 2176
@@ -254,7 +274,7 @@ tree (new) |                 2269 | 2880
 ### N=1 and M=30
 
 algorithm  | Time to process (Ms) | Nb items in pool
------------|----------------------|-----------------
+-----------|---------------------:|----------------:
 none       |                 2029 | 0
 mutex+list |                 2058 | 13
 linear     |                 1905 | 64
@@ -266,7 +286,7 @@ tree (new) |                 2011 | 64
 ### N=30 and M=1
 
 algorithm  | Min (micro) | Max (micro) | Avg (Micro)
------------|-------------|-------------|------------
+-----------|------------:|------------:|-----------:
 none       |           0 |       13921 | 373
 mutex+list |           0 |       16841 | 332
 linear     |           0 |       12125 | 33
@@ -280,7 +300,7 @@ tree (new) |           0 |       14984 | 14
 ### N=15 and M=15
 
 algorithm  | Min (micro) | Max (micro) | Avg (Micro)
------------|-------------|-------------|------------
+-----------|------------:|------------:|-----------:
 none       |           0 |      172928 | 3
 mutex+list |           0 |       14559 | 13
 linear     |           0 |         656 | 1
@@ -294,7 +314,7 @@ tree (new) |           0 |         554 | 1
 ### N=1 and M=30
 
 algorithm  | Min (micro) | Max (micro) | Avg (Micro)
------------|-------------|-------------|------------
+-----------|------------:|------------:|-----------:
 none       |           0 |        2036 | 2
 mutex+list |           0 |       22725 | 4
 linear     |           0 |        2955 | 0
@@ -310,32 +330,38 @@ tree (new) |           0 |        1099 | 0
 ### N=30 and M=1
 
 algorithm  | Min (micro) | Max (micro) | Avg (Micro)
------------|-------------|-------------|------------
+-----------|------------:|------------:|-----------:
 none       |           0 |       13921 | 373
 mutex+list |           0 |       11659 | 11
 linear     |           0 |          16 | 0
 tree (old) |           0 |         667 | 0
 tree (new) |           0 |        3611 | 0
 
+![How release is done in less ... micro sec ?](./images/perf_object_pool_01/release_30_1_global.png)
+
 ### N=15 and M=15
 
 algorithm  | Min (micro) | Max (micro) | Avg (Micro)
------------|-------------|-------------|------------
+-----------|------------:|------------:|-----------:
 none       |           0 |      172928 | 3
 mutex+list |           0 |       11843 | 11
 linear     |           0 |         840 | 0
 tree (old) |           0 |         840 | 0
 tree (new) |           0 |         611 | 0
 
+![How release is done in less ... micro sec ?](./images/perf_object_pool_01/release_15_15_global.png)
+
 ### N=1 and M=30
 
 algorithm  | Min (micro) | Max (micro) | Avg (Micro)
------------|-------------|-------------|------------
+-----------|------------:|------------:|-----------:
 none       |           0 |        2036 | 2
 mutex+list |           0 |        1615 | 5
 linear     |           0 |          89 | 0
 tree (old) |           0 |        1307 | 0
 tree (new) |           0 |        1099 | 0
+
+![How release is done in less ... micro sec ?](./images/perf_object_pool_01/release_1_30_global.png)
 
 # Conclusion
 # Links
