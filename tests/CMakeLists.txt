@@ -1,4 +1,4 @@
-if (Boost_FOUND)
+if(NOT DISABLE_UNITTEST AND Boost_FOUND)
 	enable_testing()
 
 	#
@@ -146,4 +146,4 @@ if (Boost_FOUND)
 	)
 	add_test(test_static_map test_static_map)
 
-endif (Boost_FOUND)
+endif (NOT DISABLE_UNITTEST AND Boost_FOUND) 

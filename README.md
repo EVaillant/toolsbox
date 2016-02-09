@@ -40,6 +40,7 @@ Common cmake option (to add on common line) :
 CMAKE_BUILD_TYPE | Debug or Release | Debug | Select build type
 CMAKE_INSTALL_PREFIX | path | /usr/local | Prefix installation
 ENABLE_PERF_APPL_BUILD | ON or OFF | OFF | Build Perf Tools
+DISABLE_UNITTEST | ON or OFF | OFF | Disable unittest
 
 run cmake :
 

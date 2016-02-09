@@ -12,8 +12,12 @@ if(NOT ENABLE_PERF_APPL_BUILD)
 	SET(ENABLE_PERF_APPL_BUILD OFF CACHE BOOL "Enable perf application build" FORCE)
 endif()
 
-if( NOT CMAKE_BUILD_TYPE )
-	set( CMAKE_BUILD_TYPE Debug CACHE STRING  "Choose the type of build, options are: Debug Release" FORCE )
+if(NOT CMAKE_BUILD_TYPE)
+	set(CMAKE_BUILD_TYPE Debug CACHE STRING  "Choose the type of build, options are: Debug Release" FORCE)
+endif()
+
+if(NOT DISABLE_UNITTEST)
+  set(DISABLE_UNITTEST OFF CACHE BOOL "Disable unittest" FORCE)
 endif()
 
 enable_testing()
