@@ -50,7 +50,7 @@ if(NOT DISABLE_UNITTEST AND Boost_FOUND)
 	add_test(test_lockfree test_lockfree)
 
 	#
-	# pool 
+	# pool
 	add_executable(
 		test_pool
 		test_pool.cc
@@ -63,16 +63,16 @@ if(NOT DISABLE_UNITTEST AND Boost_FOUND)
 
   #
   # perf prog
-	if(ENABLE_PERF_APPL_BUILD)
-		add_executable(
-			perf_lockfree_01
-			perf_lockfree_01.cc
-		)
-		add_executable(
-			perf_object_pool_01
-			perf_object_pool_01.cc
-		)
-	endif(ENABLE_PERF_APPL_BUILD)
+  if(ENABLE_PERF_APPL_BUILD)
+    add_executable(
+      perf_lockfree_01
+      perf_lockfree_01.cc
+    )
+    add_executable(
+      perf_object_pool_01
+      perf_object_pool_01.cc
+    )
+  endif(ENABLE_PERF_APPL_BUILD)
 
 	#
 	# sig
@@ -111,6 +111,18 @@ if(NOT DISABLE_UNITTEST AND Boost_FOUND)
 	add_test(test_for_each test_for_each)
 
 	#
+	# apply
+	add_executable(
+		test_apply
+		test_apply.cc
+	)
+	target_link_libraries(
+		test_apply
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	)
+	add_test(test_apply test_apply)
+
+	#
 	# zip
 	add_executable(
 		test_zip
@@ -146,4 +158,4 @@ if(NOT DISABLE_UNITTEST AND Boost_FOUND)
 	)
 	add_test(test_static_map test_static_map)
 
-endif (NOT DISABLE_UNITTEST AND Boost_FOUND) 
+endif (NOT DISABLE_UNITTEST AND Boost_FOUND)
