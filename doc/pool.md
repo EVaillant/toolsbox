@@ -55,7 +55,7 @@ int worker(const std::string& name, int arg)
   return 1;
 }
 
-template <class T> using queue = typedef toolsbox::lockfree::fix_size_queue<T, 64>;
+template <class T> using queue = toolsbox::lockfree::fix_size_queue<T, 64>;
 typedef toolsbox::pool::thread_pool<int (const std::string&, int), queue> thread_pool; 
 
 int main()
