@@ -83,3 +83,14 @@ BOOST_AUTO_TEST_CASE( apply_07 )
   BOOST_CHECK_EQUAL(oo,"rr");
 }
 
+BOOST_AUTO_TEST_CASE( apply_08 )
+{
+  std::string oo = "rr";
+  std::string ret;
+  std::function<void (const std::string&, std::string&)> fct = [](const std::string&y, std::string&r) { r = y; };
+  toolsbox::apply(fct, std::make_tuple(std::cref(oo), std::ref(ret)));
+  BOOST_CHECK_EQUAL(ret, oo);
+  BOOST_CHECK_EQUAL(oo,"rr");
+}
+
+

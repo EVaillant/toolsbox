@@ -123,6 +123,18 @@ if(NOT DISABLE_UNITTEST AND Boost_FOUND)
 	add_test(test_apply test_apply)
 
 	#
+	# apply
+	add_executable(
+		test_thread_pool
+		test_thread_pool.cc
+	)
+	target_link_libraries(
+		test_thread_pool
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	)
+	add_test(test_thread_pool test_thread_pool)
+
+	#
 	# zip
 	add_executable(
 		test_zip

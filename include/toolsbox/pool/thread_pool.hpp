@@ -44,7 +44,7 @@ namespace toolsbox
         {
           default_target_ = target;
         }
-    
+
         void bind_by_thread(std::size_t id, const target_type& target)
         {
           target_by_thread_[id] = target;

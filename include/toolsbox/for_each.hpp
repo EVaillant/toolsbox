@@ -24,17 +24,17 @@ namespace toolsbox
 
   template <class F, class ... Types> void for_each_by_tuple(F&& functor, std::tuple<Types...> && tuple)
   {
-    for_each_detail::for_each_by_tuple_impl(std::forward<F>(functor), std::forward<std::tuple<Types...>&&>(tuple), std::index_sequence_for<Types...>{});
+    for_each_detail::for_each_by_tuple_impl(std::forward<F>(functor), std::forward<std::tuple<Types...>>(tuple), std::index_sequence_for<Types...>{});
   }
 
   template <class F, class ... Types> void for_each_by_tuple(F&& functor, std::tuple<Types...> & tuple)
   {
-    for_each_detail::for_each_by_tuple_impl(std::forward<F>(functor), std::forward<std::tuple<Types...>&>(tuple), std::index_sequence_for<Types...>{});
+    for_each_detail::for_each_by_tuple_impl(std::forward<F>(functor), std::forward<std::tuple<Types...>>(tuple), std::index_sequence_for<Types...>{});
   }
 
   template <class F, class ... Types> void for_each_by_tuple(F&& functor, const std::tuple<Types...> & tuple)
   {
-    for_each_detail::for_each_by_tuple_impl(std::forward<F>(functor), std::forward<const std::tuple<Types...>&>(tuple), std::index_sequence_for<Types...>{});
+    for_each_detail::for_each_by_tuple_impl(std::forward<F>(functor), std::forward<const std::tuple<Types...>>(tuple), std::index_sequence_for<Types...>{});
   }
 }
 
