@@ -43,7 +43,7 @@ namespace toolsbox
 }
 ```
 
-## thread_pool
+# thread_pool
 
 ```c++
 #include <toolsbox/pool/thread_pool.hpp>
