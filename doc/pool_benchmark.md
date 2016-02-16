@@ -259,7 +259,6 @@ linear     |                 6607 | 50368
 tree (old) |                 4108 | 5153856
 tree (new) |                 3879 | 309696
 
-
 ### N=15 and M=15
 
 algorithm  | Time to process (Ms) | Nb items in pool
@@ -269,7 +268,6 @@ mutex+list |                 2737 | 284
 linear     |                 2332 | 2176
 tree (old) |                 2285 | 4160
 tree (new) |                 2269 | 2880
-
 
 ### N=1 and M=30
 
@@ -325,7 +323,7 @@ tree (new) |           0 |        1099 | 0
 
 ![How allocation is done in less ... micro sec ? (zoom on 0 - 5 micro)](./images/perf_object_pool_01/alloc_1_30_zoom.png)
 
-## memory free
+## memory release
 
 ### N=30 and M=1
 
@@ -364,5 +362,17 @@ tree (new) |           0 |        1099 | 0
 ![How release is done in less ... micro sec ?](./images/perf_object_pool_01/release_1_30_global.png)
 
 # Conclusion
+
+* segment algo are faster in allocation and release than reference algo,
+* between the segment algo
+	* the fastest allocation algo is `tree (new)` but with a lot of simultaneous access, 
+	* this memory usage is more important than `linear`,
+	* there is no big difference to release
+* `tree (old)` and `mutex+list` have a memory over consumption
+
+# Evolution
+
+* add little sleep in segment algo when atomic/compare_exchange_weak failed
+
 # Links
 [source] (../tests/perf_object_pool_01.cc)
