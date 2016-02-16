@@ -3,6 +3,7 @@
 
 # include <utility>
 # include <tuple>
+# include <type_traits>
 
 namespace toolsbox
 {
@@ -22,19 +23,9 @@ namespace toolsbox
     (void)tmp;
   }
 
-  template <class F, class ... Types> void for_each_by_tuple(F&& functor, std::tuple<Types...> && tuple)
+  template <class F, class Tuple> void for_each_by_tuple(F&& f, Tuple&& t)
   {
-    for_each_detail::for_each_by_tuple_impl(std::forward<F>(functor), std::forward<std::tuple<Types...>>(tuple), std::index_sequence_for<Types...>{});
-  }
-
-  template <class F, class ... Types> void for_each_by_tuple(F&& functor, std::tuple<Types...> & tuple)
-  {
-    for_each_detail::for_each_by_tuple_impl(std::forward<F>(functor), std::forward<std::tuple<Types...>>(tuple), std::index_sequence_for<Types...>{});
-  }
-
-  template <class F, class ... Types> void for_each_by_tuple(F&& functor, const std::tuple<Types...> & tuple)
-  {
-    for_each_detail::for_each_by_tuple_impl(std::forward<F>(functor), std::forward<const std::tuple<Types...>>(tuple), std::index_sequence_for<Types...>{});
+    for_each_detail::for_each_by_tuple_impl(std::forward<F>(f), std::forward<Tuple>(t), std::make_index_sequence<std::tuple_size<std::decay_t<Tuple>>{}>{});
   }
 }
 

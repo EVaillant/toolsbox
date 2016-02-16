@@ -3,6 +3,7 @@
 
 # include <utility>
 # include <tuple>
+# include <type_traits>
 
 namespace toolsbox
 {
@@ -14,19 +15,9 @@ namespace toolsbox
     }
   }
 
-  template <class F, class ... Args> auto apply(F&& functor, const std::tuple<Args...>& args)
+  template <class F, class Tuple> auto apply(F&& f, Tuple&& t)
   {
-    return apply_detail::apply_impl(std::forward<F>(functor), std::forward<const std::tuple<Args...>>(args), std::index_sequence_for<Args...>{});
-  }
-
-  template <class F, class ... Args> auto apply(F&& functor, std::tuple<Args...>& args)
-  {
-    return apply_detail::apply_impl(std::forward<F>(functor), std::forward<std::tuple<Args...>>(args), std::index_sequence_for<Args...>{});
-  }
-
-  template <class F, class ... Args> auto apply(F&& functor, std::tuple<Args...>&& args)
-  {
-    return apply_detail::apply_impl(std::forward<F>(functor), std::forward<std::tuple<Args...>>(args), std::index_sequence_for<Args...>{});
+    return apply_detail::apply_impl(std::forward<F>(f), std::forward<Tuple>(t), std::make_index_sequence<std::tuple_size<std::decay_t<Tuple>>{}>{});
   }
 }
 
