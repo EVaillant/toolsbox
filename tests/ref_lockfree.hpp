@@ -44,7 +44,7 @@ namespace ref
 
     private:
       std::list<value_type> values_;
-      mutable std::mutex		mutex_;
+      mutable std::mutex    mutex_;
   };
 
   template <class T> class queue
@@ -83,7 +83,7 @@ namespace ref
 
     private:
       std::list<value_type> values_;
-      mutable std::mutex		mutex_;
+      mutable std::mutex    mutex_;
   };
 
   template <class T, size_t S> class fix_size_queue
@@ -161,8 +161,8 @@ namespace ref
       size_t head_;
       size_t tail_;
 
-      mutable std::mutex		head_mutex_;
-      mutable std::mutex		tail_mutex_;
+      mutable std::mutex    head_mutex_;
+      mutable std::mutex    tail_mutex_;
   };
 }
 

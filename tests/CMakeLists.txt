@@ -1,65 +1,65 @@
 if(NOT DISABLE_UNITTEST AND Boost_FOUND)
-	enable_testing()
+  enable_testing()
 
-	#
-	# variant
-	add_executable(
-		test_variant
-		test_variant.cc
-	)
-	target_link_libraries(
-		test_variant
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_variant test_variant)
+  #
+  # variant
+  add_executable(
+    test_variant
+    test_variant.cc
+  )
+  target_link_libraries(
+    test_variant
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_variant test_variant)
 
-	#
-	# type_uid
-	add_executable(
-		test_type_uid
-		test_type_uid.cc
-	)
-	target_link_libraries(
-		test_type_uid
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_type_uid test_type_uid)
+  #
+  # type_uid
+  add_executable(
+    test_type_uid
+    test_type_uid.cc
+  )
+  target_link_libraries(
+    test_type_uid
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_type_uid test_type_uid)
 
-	#
-	# any
-	add_executable(
-		test_any
-		test_any.cc
-	)
-	target_link_libraries(
-		test_any
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_any test_any)
+  #
+  # any
+  add_executable(
+    test_any
+    test_any.cc
+  )
+  target_link_libraries(
+    test_any
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_any test_any)
 
-	#
-	# lockfree
-	add_executable(
-		test_lockfree
-		test_lockfree.cc
-	)
-	target_link_libraries(
-		test_lockfree
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_lockfree test_lockfree)
+  #
+  # lockfree
+  add_executable(
+    test_lockfree
+    test_lockfree.cc
+  )
+  target_link_libraries(
+    test_lockfree
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_lockfree test_lockfree)
 
-	#
-	# pool
-	add_executable(
-		test_pool
-		test_pool.cc
-	)
-	target_link_libraries(
-		test_pool
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_pool test_pool)
+  #
+  # pool
+  add_executable(
+    test_pool
+    test_pool.cc
+  )
+  target_link_libraries(
+    test_pool
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_pool test_pool)
 
   #
   # perf prog
@@ -74,100 +74,100 @@ if(NOT DISABLE_UNITTEST AND Boost_FOUND)
     )
   endif(ENABLE_PERF_APPL_BUILD)
 
-	#
-	# sig
-	add_executable(
-		test_sig
-		test_sig.cc
-	)
-	target_link_libraries(
-		test_sig
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_sig test_sig)
+  #
+  # sig
+  add_executable(
+    test_sig
+    test_sig.cc
+  )
+  target_link_libraries(
+    test_sig
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_sig test_sig)
 
-	#
-	# print_type
-	add_executable(
-		test_print_type
-		test_print_type.cc
-	)
-	target_link_libraries(
-		test_print_type
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_print_type test_print_type)
+  #
+  # print_type
+  add_executable(
+    test_print_type
+    test_print_type.cc
+  )
+  target_link_libraries(
+    test_print_type
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_print_type test_print_type)
 
-	#
-	# for_each
-	add_executable(
-		test_for_each
-		test_for_each.cc
-	)
-	target_link_libraries(
-		test_for_each
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_for_each test_for_each)
+  #
+  # for_each
+  add_executable(
+    test_for_each
+    test_for_each.cc
+  )
+  target_link_libraries(
+    test_for_each
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_for_each test_for_each)
 
-	#
-	# apply
-	add_executable(
-		test_apply
-		test_apply.cc
-	)
-	target_link_libraries(
-		test_apply
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_apply test_apply)
+  #
+  # apply
+  add_executable(
+    test_apply
+    test_apply.cc
+  )
+  target_link_libraries(
+    test_apply
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_apply test_apply)
 
-	#
-	# apply
-	add_executable(
-		test_thread_pool
-		test_thread_pool.cc
-	)
-	target_link_libraries(
-		test_thread_pool
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_thread_pool test_thread_pool)
+  #
+  # apply
+  add_executable(
+    test_thread_pool
+    test_thread_pool.cc
+  )
+  target_link_libraries(
+    test_thread_pool
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_thread_pool test_thread_pool)
 
-	#
-	# zip
-	add_executable(
-		test_zip
-		test_zip.cc
-	)
-	target_link_libraries(
-		test_zip
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_zip test_zip)
+  #
+  # zip
+  add_executable(
+    test_zip
+    test_zip.cc
+  )
+  target_link_libraries(
+    test_zip
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_zip test_zip)
 
-	#
-	# zip_tuple
-	add_executable(
-		test_zip_tuple
-		test_zip_tuple.cc
-	)
-	target_link_libraries(
-		test_zip_tuple
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_zip_tuple test_zip_tuple)
+  #
+  # zip_tuple
+  add_executable(
+    test_zip_tuple
+    test_zip_tuple.cc
+  )
+  target_link_libraries(
+    test_zip_tuple
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_zip_tuple test_zip_tuple)
 
-	#
-	# zip_tuple
-	add_executable(
-		test_static_map
-		test_static_map.cc
-	)
-	target_link_libraries(
-		test_static_map
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	)
-	add_test(test_static_map test_static_map)
+  #
+  # zip_tuple
+  add_executable(
+    test_static_map
+    test_static_map.cc
+  )
+  target_link_libraries(
+    test_static_map
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+  )
+  add_test(test_static_map test_static_map)
 
 endif (NOT DISABLE_UNITTEST AND Boost_FOUND)

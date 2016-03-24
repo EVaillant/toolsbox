@@ -74,7 +74,7 @@ namespace toolsbox
 
       protected:
         struct node;
-        typedef detail::pointer_tag<node>	node_type;
+        typedef detail::pointer_tag<node>  node_type;
         struct node
         {
           node_type  next;
