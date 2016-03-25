@@ -8,7 +8,7 @@ namespace toolsbox
 {
   namespace any_detail
   {
-    std::ostream& operator << (std::ostream& stream , const toolsbox::any_detail::any &a)
+    inline std::ostream& operator << (std::ostream& stream , const toolsbox::any_detail::any &a)
     {
       if(a.value_)
       {
