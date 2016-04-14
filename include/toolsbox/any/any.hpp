@@ -18,7 +18,10 @@ namespace toolsbox
 
         inline any(const any& a)
         {
-          value_ = a.value_->clone();
+          if(!a.empty())
+          {
+            value_ = a.value_->clone();
+          }
         }
 
         inline any(any&& a)
@@ -48,7 +51,14 @@ namespace toolsbox
 
         any& operator=(const any& a)
         {
-          value_ = a.value_->clone();
+          if(a.empty())
+          {
+            reset();
+          }
+          else
+          {
+            value_ = a.value_->clone();
+          }
           return *this;
         }
 
