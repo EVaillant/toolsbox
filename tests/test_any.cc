@@ -6,108 +6,172 @@
 
 #include <toolsbox/any.hpp>
 
-#include <string>
-
-BOOST_TEST_DONT_PRINT_LOG_VALUE(nullptr_t)
-
 BOOST_AUTO_TEST_CASE( any_01 )
 {
   toolsbox::any a;
+
   BOOST_CHECK(a.empty());
   BOOST_CHECK(!a.is<int>());
-  BOOST_CHECK(!a.is<std::string>());
+  BOOST_CHECK(!a.is<const int>());
+  BOOST_CHECK(!a.is<int*>());
+  BOOST_CHECK(!a.is<const int*>());
+  BOOST_CHECK(!a.is<int&>());
+  BOOST_CHECK(!a.is<const int&>());
+
+  BOOST_CHECK(std::to_string(a).empty());
 }
 
 BOOST_AUTO_TEST_CASE( any_02 )
 {
-  toolsbox::any a(6);
-  toolsbox::any b(6);
-  toolsbox::any c(7);
-  toolsbox::any d(std::string("eee"));
+  int v = 5;
 
-  BOOST_CHECK(!a.empty());
-  BOOST_CHECK(!b.empty());
-  BOOST_CHECK(!c.empty());
-  BOOST_CHECK(!d.empty());
-  BOOST_CHECK( a.is<int>());
-  BOOST_CHECK(!a.is<std::string>());
-  BOOST_CHECK( a.as<int>() == 6);
-  BOOST_CHECK( b.is<int>());
-  BOOST_CHECK(!b.is<std::string>());
-  BOOST_CHECK( b.as<int>() == 6);
-  BOOST_CHECK( c.is<int>());
-  BOOST_CHECK(!c.is<std::string>());
-  BOOST_CHECK( c.as<int>() == 7);
-  BOOST_CHECK(!d.is<int>());
-  BOOST_CHECK( d.is<std::string>());
-  BOOST_CHECK( d.as<std::string>() == "eee");
+  toolsbox::any        a(v);
+  const toolsbox::any& b = a;
 
-  BOOST_CHECK( a == 6);
-  BOOST_CHECK(! (a != 6));
-  BOOST_CHECK( a == b);
-  BOOST_CHECK(! (a != b));
-  BOOST_CHECK( a <= 6);
-  BOOST_CHECK(! (a > 6));
-  BOOST_CHECK( a <  7);
-  BOOST_CHECK(! (a >=  7));
-  BOOST_CHECK( a <= 7);
-  BOOST_CHECK(! (a > 7));
-  BOOST_CHECK( a <= c);
-  BOOST_CHECK(! (a > c));
-  BOOST_CHECK( a <  c);
-  BOOST_CHECK(! (a >=  c));
-  BOOST_CHECK( a != c);
-  BOOST_CHECK(! (a == c));
-  BOOST_CHECK( a <  d);
-  BOOST_CHECK(! (a >=  d));
-  BOOST_CHECK( a != d);
-  BOOST_CHECK(! (a == d));
-  BOOST_CHECK( a <= d);
-  BOOST_CHECK(! (a > d));
+  BOOST_CHECK(a.is<int>());
+  BOOST_CHECK(!a.is<const int>());
+  BOOST_CHECK(!a.is<int*>());
+  BOOST_CHECK(!a.is<const int*>());
+  BOOST_CHECK(!a.is<int&>());
+  BOOST_CHECK(!a.is<const int&>());
+
+  BOOST_CHECK(a.as<int>() == v);
+  BOOST_CHECK(b.as<int>() == v);
+
+  BOOST_CHECK(std::to_string(a) == std::to_string(v));
+  BOOST_CHECK(std::to_string(b) == std::to_string(v));
 }
 
 BOOST_AUTO_TEST_CASE( any_03 )
 {
-  toolsbox::any v1 (5);
-  toolsbox::any v2 (std::string("rrr"));
-  toolsbox::any v3;
+  int o = 5;
+  int *v = &o;
 
-  BOOST_CHECK( v3 <  v1 );
-  BOOST_CHECK( v3 <  v2 );
-  BOOST_CHECK( v3 <= v1 );
-  BOOST_CHECK( v3 <= v2 );
-  BOOST_CHECK( v3 <   1 );
-  BOOST_CHECK( v3 <=  1 );
-  BOOST_CHECK( 1  >  v3 );
-  BOOST_CHECK( 1  >= v3 );
+  toolsbox::any        a(v);
+  const toolsbox::any& b = a;
 
+  BOOST_CHECK(!a.is<int>());
+  BOOST_CHECK(!a.is<const int>());
+  BOOST_CHECK(a.is<int*>());
+  BOOST_CHECK(!a.is<const int*>());
+  BOOST_CHECK(!a.is<int&>());
+  BOOST_CHECK(!a.is<const int&>());
 
-  BOOST_CHECK( v1 >  v3 );
-  BOOST_CHECK( v2 >  v3 );
-  BOOST_CHECK( v1 >= v3 );
-  BOOST_CHECK( v2 >= v3 );
+  BOOST_CHECK(a.as<int*>() == v);
+  BOOST_CHECK(b.as<int*>() == v);
+
+  BOOST_CHECK(std::to_string(a) == std::to_string(v));
+  BOOST_CHECK(std::to_string(b) == std::to_string(v));
 }
 
 BOOST_AUTO_TEST_CASE( any_04 )
 {
-  toolsbox::any v1 (5);
-  toolsbox::any v2 (std::string("rrr"));
-  toolsbox::any v3;
+  int o = 5;
+  const int *v = &o;
 
-  std::hash<toolsbox::any> any_hash;
+  toolsbox::any        a(v);
+  const toolsbox::any& b = a;
 
-  BOOST_CHECK( any_hash(v1) != 0 );
-  BOOST_CHECK( any_hash(v2) != 0 );
-  BOOST_CHECK( any_hash(v3) == 0 );
+  BOOST_CHECK(!a.is<int>());
+  BOOST_CHECK(!a.is<const int>());
+  BOOST_CHECK(!a.is<int*>());
+  BOOST_CHECK(a.is<const int*>());
+  BOOST_CHECK(!a.is<int&>());
+  BOOST_CHECK(!a.is<const int&>());
+
+  BOOST_CHECK(a.as<const int*>() == v);
+  BOOST_CHECK(b.as<const int*>() == v);
+
+  BOOST_CHECK(std::to_string(a) == std::to_string(v));
+  BOOST_CHECK(std::to_string(b) == std::to_string(v));
 }
 
 BOOST_AUTO_TEST_CASE( any_05 )
 {
-  toolsbox::any v (5);
+  int v = 5;
+  toolsbox::any        a(std::ref(v));
+  const toolsbox::any& b = a;
 
-  BOOST_CHECK_NE(    std::get<int>(v),         nullptr);
-  BOOST_CHECK_EQUAL( std::get<std::string>(v), nullptr);
-  BOOST_CHECK_EQUAL( *std::get<int>(v),        5);
+  BOOST_CHECK(!a.is<int>());
+  BOOST_CHECK(!a.is<const int>());
+  BOOST_CHECK(!a.is<int*>());
+  BOOST_CHECK(!a.is<const int*>());
+  BOOST_CHECK(a.is<int&>());
+  BOOST_CHECK(!a.is<const int&>());
+
+  BOOST_CHECK(a.as<int&>() == v);
+  BOOST_CHECK(b.as<int&>() == v);
+
+  BOOST_CHECK(std::to_string(a) == std::to_string(v));
+  BOOST_CHECK(std::to_string(b) == std::to_string(v));
+
+  ++v;
+
+  BOOST_CHECK(a.as<int&>() == v);
+  BOOST_CHECK(b.as<int&>() == v);
+
+  BOOST_CHECK(std::to_string(a) == std::to_string(v));
+  BOOST_CHECK(std::to_string(b) == std::to_string(v));
 }
 
+BOOST_AUTO_TEST_CASE( any_06 )
+{
+  int v = 5;
+  toolsbox::any a(std::cref(v));
+  const toolsbox::any& b = a;
+  BOOST_CHECK(!a.is<int>());
+  BOOST_CHECK(!a.is<const int>());
+  BOOST_CHECK(!a.is<int*>());
+  BOOST_CHECK(!a.is<const int*>());
+  BOOST_CHECK(!a.is<int&>());
+  BOOST_CHECK(a.is<const int&>());
 
+  BOOST_CHECK(a.as<const int&>() == v);
+  BOOST_CHECK(b.as<const int&>() == v);
+
+  BOOST_CHECK(std::to_string(a) == std::to_string(v));
+  BOOST_CHECK(std::to_string(b) == std::to_string(v));
+
+  ++v;
+
+  BOOST_CHECK(a.as<const int&>() == v);
+  BOOST_CHECK(b.as<const int&>() == v);
+
+  BOOST_CHECK(std::to_string(a) == std::to_string(v));
+  BOOST_CHECK(std::to_string(b) == std::to_string(v));
+}
+
+BOOST_AUTO_TEST_CASE( any_07 )
+{
+  toolsbox::any b;
+  toolsbox::any a(b);
+  BOOST_CHECK(!a.is<int>());
+  BOOST_CHECK(!a.is<const int>());
+  BOOST_CHECK(!a.is<int*>());
+  BOOST_CHECK(!a.is<const int*>());
+  BOOST_CHECK(!a.is<int&>());
+  BOOST_CHECK(!a.is<const int&>());
+
+  BOOST_CHECK(std::to_string(a).empty());
+  BOOST_CHECK(std::to_string(b).empty());
+}
+
+BOOST_AUTO_TEST_CASE( any_08 )
+{
+  toolsbox::any        b(5);
+  toolsbox::any        a(b);
+  const toolsbox::any& c = a;
+
+  BOOST_CHECK(a.is<int>());
+  BOOST_CHECK(!a.is<const int>());
+  BOOST_CHECK(!a.is<int*>());
+  BOOST_CHECK(!a.is<const int*>());
+  BOOST_CHECK(!a.is<int&>());
+  BOOST_CHECK(!a.is<const int&>());
+
+  BOOST_CHECK(a.as<int>() == 5);
+  BOOST_CHECK(c.as<int>() == 5);
+
+  BOOST_CHECK(std::to_string(a) == "5");
+  BOOST_CHECK(std::to_string(c) == "5");
+}

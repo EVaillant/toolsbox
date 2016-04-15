@@ -6,6 +6,8 @@
 # include <memory>
 # include <ostream>
 
+# include <boost/type_traits/has_left_shift.hpp>
+
 namespace toolsbox
 {
   namespace any_detail
@@ -13,47 +15,74 @@ namespace toolsbox
     class any_value
     {
       public:
-        typedef type_uid::id_type          id_type;
-        typedef std::unique_ptr<any_value> ptr_type;
+        typedef toolsbox::type_uid::id_type  id_type;
+        typedef std::unique_ptr<any_value>   ptr_type;
 
-        virtual inline ~any_value()
+        inline virtual ~any_value() {}
+
+        virtual id_type  get_id() const = 0;
+        virtual ptr_type copy()   const = 0;
+        virtual void to_stream(std::ostream& stream) const = 0;
+    };
+
+    template <class T> class any_value_impl : public any_value
+    {
+      public:
+        typedef T                    type;
+        typedef any_value_impl<type> self_type;
+
+        template <class V> any_value_impl(V && value, id_type id)
+          : value_(std::forward<V>(value))
+          , id_(id)
         {
         }
 
-        virtual id_type get_id() const = 0;
-        virtual ptr_type clone() const = 0;
-        virtual bool equal_to(const any_value& a) const = 0;
-        virtual bool not_equal_to(const any_value& a) const = 0;
-        virtual bool less(const any_value& a) const = 0;
-        virtual bool greater(const any_value& a) const = 0;
-        virtual bool less_equal(const any_value& a) const = 0;
-        virtual bool greater_equal(const any_value& a) const = 0;
-        virtual void to_string(std::ostream& stream) const = 0;
-        virtual std::size_t hash() const = 0;
+        virtual id_type  get_id() const override
+        {
+          return id_;
+        }
+
+        virtual ptr_type copy() const override
+        {
+          return std::make_unique<self_type>(value_, id_);
+        }
+
+        virtual void to_stream(std::ostream& stream) const override
+        {
+          to_stream_(stream, value_);
+        }
+
+        type& get_value()
+        {
+          return value_;
+        }
+
+        const type& get_value() const
+        {
+          return value_;
+        }
+
+      protected:
+        template <class U> typename std::enable_if<boost::has_left_shift<std::ostream, U>::value>::type to_stream_(std::ostream& stream, const U& value) const
+        {
+          stream << value;
+        }
+
+        template <class U> void to_stream_(std::ostream& stream, const std::reference_wrapper<U>& ref) const
+        {
+          to_stream_(stream, ref.get());
+        }
+
+        template <class U> typename std::enable_if<!boost::has_left_shift<std::ostream, U>::value>::type to_stream_(std::ostream&, const U&) const
+        {
+        }
+
+      private:
+        type    value_;
+        id_type id_;
     };
   }
 }
-
-#define override_opt_any_value(opt) \
-  template <> struct opt <toolsbox::any_detail::any_value>                                                            \
-  {                                                                                                                   \
-    bool operator()( const toolsbox::any_detail::any_value& lhs, const toolsbox::any_detail::any_value& rhs ) const   \
-    {                                                                                                                 \
-      return lhs.opt(rhs);                                                                                            \
-    }                                                                                                                 \
-  }
-
-namespace std
-{
-  override_opt_any_value(equal_to);
-  override_opt_any_value(not_equal_to);
-  override_opt_any_value(less);
-  override_opt_any_value(greater);
-  override_opt_any_value(less_equal);
-  override_opt_any_value(greater_equal);
-}
-
-#undef override_opt_any_value
 
 #endif
 
