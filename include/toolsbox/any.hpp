@@ -4,6 +4,8 @@
 # include <toolsbox/any/any_value.hpp>
 # include <toolsbox/any/type_traits.hpp>
 
+# include <cassert>
+
 namespace toolsbox
 {
   class any
