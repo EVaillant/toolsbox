@@ -2,6 +2,7 @@
 # define TOOLSBOX_ANY_ANY_IO_HPP
 
 # include <ostream>
+# include <sstream>
 
 namespace toolsbox
 {

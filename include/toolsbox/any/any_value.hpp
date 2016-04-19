@@ -31,20 +31,19 @@ namespace toolsbox
         typedef T                    type;
         typedef any_value_impl<type> self_type;
 
-        template <class V> any_value_impl(V && value, id_type id)
+        template <class V> any_value_impl(V && value)
           : value_(std::forward<V>(value))
-          , id_(id)
         {
         }
 
         virtual id_type  get_id() const override
         {
-          return id_;
+          return toolsbox::type_uid::get<type>();
         }
 
         virtual ptr_type copy() const override
         {
-          return std::make_unique<self_type>(value_, id_);
+          return std::make_unique<self_type>(value_);
         }
 
         virtual void to_stream(std::ostream& stream) const override
@@ -79,7 +78,6 @@ namespace toolsbox
 
       private:
         type    value_;
-        id_type id_;
     };
   }
 }

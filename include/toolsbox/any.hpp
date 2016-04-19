@@ -9,6 +9,8 @@ namespace toolsbox
   class any
   {
     public:
+      typedef any_detail::any_value::id_type id_type;
+
       inline any()
       {
       }
@@ -44,6 +46,12 @@ namespace toolsbox
         return (!empty() && value_->get_id() == toolsbox::type_uid::get<type_id>());
       }
 
+      id_type get_id() const
+      {
+        assert(!empty());
+        return value_->get_id();
+      }
+
       template <class T> T& as()
       {
         typedef typename any_detail::any_type_id<T>::type type_id;
@@ -66,7 +74,7 @@ namespace toolsbox
         {
           reset();
         }
-        else
+        else if (this != &a)
         {
           value_ = a.value_->copy();
         }
@@ -81,15 +89,17 @@ namespace toolsbox
 
       inline any& operator=(any&& a)
       {
-        value_ = std::move(a.value_);
+        if (this != &a)
+        {
+          value_ = std::move(a.value_);
+        }
         return *this;
       }
 
       template <class T, class V = typename std::enable_if<!std::is_same<std::decay_t<T>, any>::value>::type> any& operator=(T&& v)
       {
         typedef std::decay_t<T> store_type;
-        any_detail::any_value::id_type id = toolsbox::type_uid::get<store_type>();
-        value_.reset(new any_detail::any_value_impl<store_type>(std::forward<T>(v), id));
+        value_.reset(new any_detail::any_value_impl<store_type>(std::forward<T>(v)));
         return *this;
       }
 
