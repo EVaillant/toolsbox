@@ -22,6 +22,12 @@ endif()
 enable_testing()
 
 #
+#
+include_directories(
+    include
+)
+
+#
 # Boost
 include(FindBoost)
 find_package(
@@ -34,10 +40,6 @@ if (Boost_FOUND)
     ${Boost_INCLUDE_DIR}
   )
 endif (Boost_FOUND)
-
-include_directories(
-    include
-)
 
 #
 # doxygen
