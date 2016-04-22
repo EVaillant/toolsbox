@@ -5,6 +5,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <toolsbox/any.hpp>
+#include <string>
 
 BOOST_AUTO_TEST_CASE( any_01 )
 {
@@ -181,3 +182,17 @@ BOOST_AUTO_TEST_CASE( any_08 )
   BOOST_CHECK(std::to_string(a) == "5");
   BOOST_CHECK(std::to_string(c) == "5");
 }
+
+BOOST_AUTO_TEST_CASE( any_09 )
+{
+  const std::string omsg = "popo";
+  std::string        msg = omsg;
+  toolsbox::any        a = msg;
+
+  BOOST_CHECK(msg == omsg);
+
+  a = msg;
+
+  BOOST_CHECK(msg == omsg);
+}
+

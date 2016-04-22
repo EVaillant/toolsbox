@@ -23,12 +23,12 @@ namespace toolsbox
 
       inline any(any&& a)
       {
-        *this = std::move(a);
+        *this = std::forward<any&&>(a);
       }
 
       template <class T, class V = typename std::enable_if<!std::is_same<std::decay_t<T>, any>::value>::type> any(T&& v)
       {
-        *this = std::move(v);
+        *this = std::forward<T&&>(v);
       }
 
       inline bool empty() const
