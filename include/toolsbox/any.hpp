@@ -2,7 +2,6 @@
 # define TOOLSBOX_ANY_HPP
 
 # include <toolsbox/any/any_value.hpp>
-# include <toolsbox/any/type_traits.hpp>
 
 # include <cassert>
 
@@ -11,7 +10,7 @@ namespace toolsbox
   class any
   {
     public:
-      typedef any_detail::any_value::id_type id_type;
+      typedef any_detail::id_type id_type;
 
       inline any()
       {
@@ -44,8 +43,7 @@ namespace toolsbox
 
       template<class T> bool is() const
       {
-        typedef typename any_detail::any_type_id<T>::type type_id;
-        return (!empty() && value_->get_id() == toolsbox::type_uid::get<type_id>());
+        return (!empty() && value_->get_id() == toolsbox::type_uid::get<T>());
       }
 
       id_type get_id() const
@@ -56,7 +54,7 @@ namespace toolsbox
 
       template <class T> T& as()
       {
-        typedef typename any_detail::any_type_id<T>::type type_id;
+        typedef typename any_detail::add_ref_wrapper<T>::type type_id;
         assert(is<T>());
         any_detail::any_value_impl<type_id>* impl = static_cast<any_detail::any_value_impl<type_id>* >(value_.get());
         return impl->get_value();
@@ -64,7 +62,7 @@ namespace toolsbox
 
       template <class T> const T& as() const
       {
-        typedef typename any_detail::any_type_id<T>::type type_id;
+        typedef typename any_detail::add_ref_wrapper<T>::type type_id;
         assert(is<T>());
         const any_detail::any_value_impl<type_id>* impl = static_cast<any_detail::any_value_impl<type_id>* >(value_.get());
         return impl->get_value();

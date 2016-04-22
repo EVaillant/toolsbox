@@ -34,6 +34,7 @@ BOOST_AUTO_TEST_CASE( any_02 )
   BOOST_CHECK(!a.is<const int*>());
   BOOST_CHECK(!a.is<int&>());
   BOOST_CHECK(!a.is<const int&>());
+  BOOST_CHECK(a.get_id() == toolsbox::type_uid::get<int>());
 
   BOOST_CHECK(a.as<int>() == v);
   BOOST_CHECK(b.as<int>() == v);
@@ -56,6 +57,7 @@ BOOST_AUTO_TEST_CASE( any_03 )
   BOOST_CHECK(!a.is<const int*>());
   BOOST_CHECK(!a.is<int&>());
   BOOST_CHECK(!a.is<const int&>());
+  BOOST_CHECK(a.get_id() == toolsbox::type_uid::get<int*>());
 
   BOOST_CHECK(a.as<int*>() == v);
   BOOST_CHECK(b.as<int*>() == v);
@@ -78,6 +80,7 @@ BOOST_AUTO_TEST_CASE( any_04 )
   BOOST_CHECK(a.is<const int*>());
   BOOST_CHECK(!a.is<int&>());
   BOOST_CHECK(!a.is<const int&>());
+  BOOST_CHECK(a.get_id() == toolsbox::type_uid::get<const int*>());
 
   BOOST_CHECK(a.as<const int*>() == v);
   BOOST_CHECK(b.as<const int*>() == v);
@@ -98,6 +101,7 @@ BOOST_AUTO_TEST_CASE( any_05 )
   BOOST_CHECK(!a.is<const int*>());
   BOOST_CHECK(a.is<int&>());
   BOOST_CHECK(!a.is<const int&>());
+  BOOST_CHECK(a.get_id() == toolsbox::type_uid::get<int&>());
 
   BOOST_CHECK(a.as<int&>() == v);
   BOOST_CHECK(b.as<int&>() == v);
@@ -125,6 +129,7 @@ BOOST_AUTO_TEST_CASE( any_06 )
   BOOST_CHECK(!a.is<const int*>());
   BOOST_CHECK(!a.is<int&>());
   BOOST_CHECK(a.is<const int&>());
+  BOOST_CHECK(a.get_id() == toolsbox::type_uid::get<const int&>());
 
   BOOST_CHECK(a.as<const int&>() == v);
   BOOST_CHECK(b.as<const int&>() == v);
@@ -168,6 +173,7 @@ BOOST_AUTO_TEST_CASE( any_08 )
   BOOST_CHECK(!a.is<const int*>());
   BOOST_CHECK(!a.is<int&>());
   BOOST_CHECK(!a.is<const int&>());
+  BOOST_CHECK(a.get_id() == toolsbox::type_uid::get<int>());
 
   BOOST_CHECK(a.as<int>() == 5);
   BOOST_CHECK(c.as<int>() == 5);

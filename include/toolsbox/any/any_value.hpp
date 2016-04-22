@@ -5,6 +5,7 @@
 
 # include <memory>
 # include <ostream>
+# include <functional>
 
 # include <boost/type_traits/has_left_shift.hpp>
 
@@ -12,10 +13,31 @@ namespace toolsbox
 {
   namespace any_detail
   {
+    typedef toolsbox::type_uid::id_type  id_type;
+
+    template <class T> struct add_ref_wrapper
+    {
+      typedef T type;
+    };
+
+    template <class T> struct add_ref_wrapper<T&>
+    {
+      typedef std::reference_wrapper<T> type;
+    };
+
+    template <class T> struct remove_ref_wrapper
+    {
+      typedef T type;
+    };
+
+    template <class T> struct remove_ref_wrapper<std::reference_wrapper<T>>
+    {
+      typedef T& type;
+    };
+
     class any_value
     {
       public:
-        typedef toolsbox::type_uid::id_type  id_type;
         typedef std::unique_ptr<any_value>   ptr_type;
 
         inline virtual ~any_value() {}
@@ -38,7 +60,7 @@ namespace toolsbox
 
         virtual id_type  get_id() const override
         {
-          return toolsbox::type_uid::get<type>();
+          return toolsbox::type_uid::get<typename remove_ref_wrapper<type>::type>();
         }
 
         virtual ptr_type copy() const override
