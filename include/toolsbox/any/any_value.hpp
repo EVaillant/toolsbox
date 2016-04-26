@@ -7,8 +7,6 @@
 # include <ostream>
 # include <functional>
 
-# include <boost/type_traits/has_left_shift.hpp>
-
 namespace toolsbox
 {
   namespace any_detail
@@ -44,7 +42,6 @@ namespace toolsbox
 
         virtual id_type  get_id() const = 0;
         virtual ptr_type copy()   const = 0;
-        virtual void to_stream(std::ostream& stream) const = 0;
     };
 
     template <class T> class any_value_impl : public any_value
@@ -68,11 +65,6 @@ namespace toolsbox
           return std::make_unique<self_type>(value_);
         }
 
-        virtual void to_stream(std::ostream& stream) const override
-        {
-          to_stream_(stream, value_);
-        }
-
         type& get_value()
         {
           return value_;
@@ -81,21 +73,6 @@ namespace toolsbox
         const type& get_value() const
         {
           return value_;
-        }
-
-      protected:
-        template <class U> typename std::enable_if<boost::has_left_shift<std::ostream, U>::value>::type to_stream_(std::ostream& stream, const U& value) const
-        {
-          stream << value;
-        }
-
-        template <class U> void to_stream_(std::ostream& stream, const std::reference_wrapper<U>& ref) const
-        {
-          to_stream_(stream, ref.get());
-        }
-
-        template <class U> typename std::enable_if<!boost::has_left_shift<std::ostream, U>::value>::type to_stream_(std::ostream&, const U&) const
-        {
         }
 
       private:

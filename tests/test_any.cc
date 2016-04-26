@@ -18,8 +18,6 @@ BOOST_AUTO_TEST_CASE( any_01 )
   BOOST_CHECK(!a.is<const int*>());
   BOOST_CHECK(!a.is<int&>());
   BOOST_CHECK(!a.is<const int&>());
-
-  BOOST_CHECK(std::to_string(a).empty());
 }
 
 BOOST_AUTO_TEST_CASE( any_02 )
@@ -39,9 +37,6 @@ BOOST_AUTO_TEST_CASE( any_02 )
 
   BOOST_CHECK(a.as<int>() == v);
   BOOST_CHECK(b.as<int>() == v);
-
-  BOOST_CHECK(std::to_string(a) == std::to_string(v));
-  BOOST_CHECK(std::to_string(b) == std::to_string(v));
 }
 
 BOOST_AUTO_TEST_CASE( any_03 )
@@ -62,9 +57,6 @@ BOOST_AUTO_TEST_CASE( any_03 )
 
   BOOST_CHECK(a.as<int*>() == v);
   BOOST_CHECK(b.as<int*>() == v);
-
-  BOOST_CHECK(std::to_string(a) == std::to_string(v));
-  BOOST_CHECK(std::to_string(b) == std::to_string(v));
 }
 
 BOOST_AUTO_TEST_CASE( any_04 )
@@ -85,9 +77,6 @@ BOOST_AUTO_TEST_CASE( any_04 )
 
   BOOST_CHECK(a.as<const int*>() == v);
   BOOST_CHECK(b.as<const int*>() == v);
-
-  BOOST_CHECK(std::to_string(a) == std::to_string(v));
-  BOOST_CHECK(std::to_string(b) == std::to_string(v));
 }
 
 BOOST_AUTO_TEST_CASE( any_05 )
@@ -107,16 +96,10 @@ BOOST_AUTO_TEST_CASE( any_05 )
   BOOST_CHECK(a.as<int&>() == v);
   BOOST_CHECK(b.as<int&>() == v);
 
-  BOOST_CHECK(std::to_string(a) == std::to_string(v));
-  BOOST_CHECK(std::to_string(b) == std::to_string(v));
-
   ++v;
 
   BOOST_CHECK(a.as<int&>() == v);
   BOOST_CHECK(b.as<int&>() == v);
-
-  BOOST_CHECK(std::to_string(a) == std::to_string(v));
-  BOOST_CHECK(std::to_string(b) == std::to_string(v));
 }
 
 BOOST_AUTO_TEST_CASE( any_06 )
@@ -135,16 +118,10 @@ BOOST_AUTO_TEST_CASE( any_06 )
   BOOST_CHECK(a.as<const int&>() == v);
   BOOST_CHECK(b.as<const int&>() == v);
 
-  BOOST_CHECK(std::to_string(a) == std::to_string(v));
-  BOOST_CHECK(std::to_string(b) == std::to_string(v));
-
   ++v;
 
   BOOST_CHECK(a.as<const int&>() == v);
   BOOST_CHECK(b.as<const int&>() == v);
-
-  BOOST_CHECK(std::to_string(a) == std::to_string(v));
-  BOOST_CHECK(std::to_string(b) == std::to_string(v));
 }
 
 BOOST_AUTO_TEST_CASE( any_07 )
@@ -157,9 +134,6 @@ BOOST_AUTO_TEST_CASE( any_07 )
   BOOST_CHECK(!a.is<const int*>());
   BOOST_CHECK(!a.is<int&>());
   BOOST_CHECK(!a.is<const int&>());
-
-  BOOST_CHECK(std::to_string(a).empty());
-  BOOST_CHECK(std::to_string(b).empty());
 }
 
 BOOST_AUTO_TEST_CASE( any_08 )
@@ -178,9 +152,6 @@ BOOST_AUTO_TEST_CASE( any_08 )
 
   BOOST_CHECK(a.as<int>() == 5);
   BOOST_CHECK(c.as<int>() == 5);
-
-  BOOST_CHECK(std::to_string(a) == "5");
-  BOOST_CHECK(std::to_string(c) == "5");
 }
 
 BOOST_AUTO_TEST_CASE( any_09 )
