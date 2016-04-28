@@ -81,12 +81,6 @@ namespace toolsbox
         return *this;
       }
 
-      template <class T> any& operator=(const T& t)
-      {
-        *this = any(t);
-        return *this;
-      }
-
       inline any& operator=(any&& a)
       {
         if (this != &a)
@@ -103,7 +97,6 @@ namespace toolsbox
         return *this;
       }
 
-      friend std::ostream& operator << (std::ostream& stream , const any &a);
     private:
       typedef std::unique_ptr<any_detail::any_value> value_type;
       value_type value_;

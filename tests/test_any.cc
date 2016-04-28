@@ -167,3 +167,9 @@ BOOST_AUTO_TEST_CASE( any_09 )
   BOOST_CHECK(msg == omsg);
 }
 
+BOOST_AUTO_TEST_CASE( any_10 )
+{
+  int y = 5;
+  const int& h = y;
+  toolsbox::any a = h;
+}
