@@ -24,7 +24,6 @@ It is c++ toolsbox library :
 * c++ compiler with support c++11 / c++14
 * [cmake](https://cmake.org/) 3.0 or highter
 * boost / unit test (not mandatory, to run unit test)
-* boost / header  like type trait
 * boost / other headers lib (not mandatory, to run perf application)
 
 ## Build (Unix)
